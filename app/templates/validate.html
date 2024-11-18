@@ -1,0 +1,429 @@
+<!--
+===========================================================================================================
+File: Validation Section for Theft Forecasting Application
+Programmers: Tashiana Mae C. Bandong and Alyssa Nicole B. Ramos
+Date Written: October 18, 2024
+Date Revised: November 04, 2024
+
+Where the program fits in the general system design:
+    This HTML file is part of the front-end UI for the theft forecasting web application. It provides the
+    functionality to upload location-specific crime data for forecasting, enabling users to input locations and
+    view detailed predictive insights.
+
+Purpose: 
+    This HTML file defines the validation section of the theft forecasting application. It enables users to
+    upload a CSV file containing historical crime data for specified locations, initiates data processing,
+    and displays forecast results along with relevant comparisons for different forecasting tools.
+
+    The section includes:
+    - Input fields for users to select a location and upload the corresponding crime CSV file.
+    - JavaScript functionality for uploading data, showing loading indicators, and displaying the forecasted output.
+    - Output display sections including a forecasted theft line graph, tool comparison details, and evaluation metrics.
+    - A button to start over, allowing users to reset inputs and forecasts for different locations.
+
+Data Structures:
+    - JavaScript objects and arrays are used for storing forecast data and tool comparison metrics.
+    - HTML elements, including forms and containers, manage user interactions and dynamically rendered content.
+
+Algorithms:
+    - Data Upload: JavaScript fetches the user-uploaded crime data and sends it for server-side processing.
+    - Graph Rendering: Uses Chart.js to generate dynamic line graphs of forecasted theft incidents.
+    - Tool Comparison: JavaScript functions render detailed descriptions, comparisons, and performance metrics 
+      for forecasting models to provide insights into their accuracy.
+
+Control:
+    - JavaScript handles user inputs and file uploads, displaying relevant output based on processed data.
+    - The loader element is managed to indicate progress during the upload process.
+    - Forecast insights and model performance metrics are dynamically updated based on uploaded data.
+    - The start-over function resets the input fields, allowing for a new forecasting analysis.
+
+===========================================================================================================
+-->
+
+<section id="validate" class="">
+  <div id="input">
+    <h2 id="validate-header" class="text-md font-extrabold text-blue">
+      Input Data for Theft Forecasting in Other Locations
+    </h2>
+    <br>
+    <form id="csvForm">
+      <div style="display: flex; gap: 3vw">
+        <div class="input-container">
+          <h4 class="text-desc">Enter Location:</h4>
+          <input type="text" id="location" placeholder="Enter location here" required/>
+        </div>
+        <div class="input-container">
+          <h4 class="text-desc">Upload CSV File:</h4>
+          <button id="upload-custom" type="button" onclick="$('#crime-data').click()">Choose File</button>
+          <input type="file" id="crime-data" accept=".csv" style="display: none;"/>
+          <h4 id="file-name" class="text-desc" style="font-weight: normal; margin-left: -10px;">No File Chosen</h4>
+        </div>
+      </div>
+      <button id="upload" type="button" onclick="uploadData()">Upload</button>
+    </form>
+    <br>
+    <div style="display: flex; justify-self: center; margin-top: 15px;">
+      <div class="loader"></div>
+    </div>
+  </div>
+
+  <div id="output">
+    <h2 id="output-header" class="text-md font-extrabold text-blue"></h2>
+    <div id="inpt-forecast">
+      <!-- Forecasting Result -->
+      <div id="inpt-chart"></div>
+      
+      <!-- Line Graph Description Rendering -->
+      <div id="inpt-chart-desc"></div>
+    </div>
+
+    <h1 id="output-best">Tool Selection Behind the Forecast</h1>
+    <div id="inpt-tools">
+      <div id="inpt-ncfs1" class="inpt-content content-section"></div>
+      <div id="inpt-ncfs2" class="inpt-content content-section"></div>
+      <div id="inpt-ncfs3" class="inpt-content content-section"></div>
+      <div id="inpt-ncfs4" class="inpt-content content-section"></div>
+    </div>
+    <div id="inpt-evaluation"></div>
+    <button id="start-over" type="button" onclick="startOver()">Start Over</button>
+  </div>
+    
+</section>
+
+<style>
+  #validate {
+    background-color: #F6DCAC;
+    padding: 3vw;
+  }
+
+  #validate-header, #output-header, #output-best {
+    display: flex;
+    justify-content: center;
+  }
+
+  #csvForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4vw;
+  }
+
+  .input-container {
+    display: flex;
+    align-items: center;
+    gap: 1.5vw;
+  }
+
+  #output-best {
+    font-size: 3vh;
+    margin: 3vh 0;
+  }
+
+  #inpt-tools {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  #inpt-tools h2 {
+    margin-top: 2vh;
+    font-size: 2.3vh;
+  }
+
+  #inpt-tools {
+    font-size: 13px;
+  }
+
+  .inpt-content {
+    width: 24vw;
+  }
+
+  #inpt-evaluation {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 2vh;
+  }
+
+  #inpt-description p {
+    width: 70vw;
+    font-size: 17px;
+    line-height: 1.5;
+    margin-bottom: 1.5vh;
+  }
+
+  #inpt-forecast {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3vw;
+    margin: 3vh 0 5vh 0;
+  }
+
+  #inpt-chart {
+    width: 40vw;
+    height: 40vh;
+    background-color: #feae6f;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+  }
+
+  #inpt-chart-desc {
+    width: 45vw;
+  }
+
+  #inpt-chart-desc h1 {
+    text-align: center;
+    font-size: 3vh;
+    margin-bottom: 1vh;
+  }
+
+  #inpt-chart-desc p {
+    text-align: justify;
+  }
+
+  #location {
+    display: block;
+    background-color: #01204e;
+    color: #feae6f;
+    font-weight: bold;
+    font-family: "Inter", sans-serif;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    width: 12vw;
+  }
+
+  #start-over, #upload, #upload-custom {
+    display: block;
+    background-color: #01204e;
+    color: #feae6f;
+    font-weight: bold;
+    font-family: "Inter", sans-serif;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  #start-over {
+    margin: auto;
+    margin-top: 30px;
+  }
+
+  #start-over:hover {
+    background-color: #feae6f;
+    color: #01204e;
+  }
+
+  /* Loading Animation */
+  .loader {
+    width: 150px;
+    aspect-ratio: 1;
+    display: grid;
+    border: 14px solid #0000;
+    border-radius: 50%;
+    border-color: #01204E #0000;
+    animation: l16 1s infinite linear;
+  }
+
+  .loader::before, .loader::after {    
+    content: "";
+    grid-area: 1/1;
+    margin: 3px;
+    border: inherit;
+    border-radius: 50%;
+  }
+
+  .loader::before {
+    border-color: #FEAE6F #0000;
+    animation: inherit; 
+    animation-duration: .5s;
+    animation-direction: reverse;
+  }
+
+  .loader::after {
+    margin: 15px;
+  }
+  
+  @keyframes l16 { 
+    100%{transform: rotate(1turn)}
+  }
+
+</style>
+
+<!-- NCFS 1 to 4 Tool Comparison Template for Input -->
+<script id="inptToolComparisonTemplate" type="text/template">
+  <h2>NCFS with [[factors]] Factors</h2>
+  <canvas id="[[graphID]]"></canvas>
+  <p class="tool-description">
+    <div style="text-align: justify; color: #01204e; font-weight: bold; margin: 0 10px;">
+      The NCFS tool considers [[factors]] socioeconomic factor/s. The graph indicates that the [[description]], with an average difference of <span style="text-decoration: underline">[[difference]]</span>
+    </div>
+    <!-- Actual and forecasted values -->
+    <span style="text-align: center; margin-bottom: 20px;">
+        <br /><b style="color: #01204e">Actual Theft Incidents:</b> <span style="color: #f18634;  font-weight: bold;">[[actual]]</span>
+        <br /><b style="color: #01204e">Forecasted Theft Incidents:</b> <span style="color: #f18634;  font-weight: bold;">[[forecasted]]</span>
+        <br>
+        <br /><b style="color: #01204e">MAD:</b> <span style="color: #f18634;  font-weight: bold;">[[mad]]</span>
+        <br /><b style="color: #01204e">MAE:</b> <span style="color: #f18634;  font-weight: bold;">[[mae]]</span>
+        <br /><b style="color: #01204e">RMSE:</b> <span style="color: #f18634;  font-weight: bold;">[[rmse]]</span>
+        <br /><b style="color: #01204e">MAPE:</b> <span style="color: #f18634;  font-weight: bold;">[[mape]]%</span>
+        <br>
+        <br /><b style="color: #01204e">Selected Factors:</b> <span style="color: #f18634;  font-weight: bold;">[[selectedFactors]]</span>
+    </span>
+</p>
+</script>
+
+<!-- Tool Description -->
+<script id="inptToolDescriptionTemplate" type="text/template">
+  <div id="inpt-description">
+    <p>The <b>[[bestModel]] Model</b> is the best option for forecasting, showing the smallest errors with a Mean Absolute Error (MAE) of [[bestMAE]], a Mean Absolute Percentage Error (MAPE) of [[bestMAPE]]%, and a Root Mean Square Error (RMSE) of [[bestRMSE]].</p>
+    <p>On the other hand, the <b>[[leastModel]] Model</b> has the largest errors, with a MAE of [[leastMAE]] and an RMSE of [[leastRMSE]], making it the least accurate. The <b>[[unselected1]]</b> and <b>[[unselected2]] Models</b> perform reasonably well but don’t quite match the accuracy of [[bestModel]].</p>
+    <p><b>Overall, [[bestModel]] is the most reliable choice for selecting factors for theft predictions.</b></p>
+</div>
+</script>
+
+<script>
+  $(document).ready(function() {
+    $("#output, .loader").hide();
+  });
+
+  $('#crime-data').on('change', function () {
+    const fileName = this.files[0]?.name || "No File Chosen";
+    $('#file-name').text(fileName);
+  });
+
+  function uploadData() {
+    const fileInput = $("#crime-data")[0];
+    const file = fileInput.files[0];
+    const location = $("#location").val().toUpperCase();
+
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      $(".loader").show();
+
+      $.ajax({
+        url: "/retrieve/process_input",
+        type: "POST",
+        dataType: 'json',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(data) {
+          console.log(data)
+          ncfs = data.models;
+          forecast_result = data.forecast_result;
+
+          $("#output-header").text(`Theft Forecasting in ${location}`)
+          $("#output").show();
+          $("#input").hide();
+
+          const vh = window.innerHeight * 0.11; 
+          const targetElement = document.getElementById("validate");
+          window.scrollTo({ 
+            top: targetElement.offsetTop - vh,
+            behavior: "smooth" 
+          });
+
+          // Initialize the forecast object
+          const forecast = {
+            theft_values: [],
+            week_ends: [],
+            week_starts: []
+          };
+
+          // Populate the forecast object
+          forecast_result.forEach(item => {
+            forecast.theft_values.push(item.forecasted_value);
+            forecast.week_ends.push(item.week_end);
+            forecast.week_starts.push(item.week_start);
+          });
+
+          // Render line graph and description
+          weeklyForecast(forecast, "#inpt-chart", "inptForecast", "#inpt-chart-desc", location)
+
+          // Render bar graph and description for each NCFS tool
+          inptRenderToolComparison($("#inpt-ncfs1"), ncfs[0], "inpt-ncfs1-graph")
+          inptRenderToolComparison($("#inpt-ncfs2"), ncfs[1], "inpt-ncfs2-graph")
+          inptRenderToolComparison($("#inpt-ncfs3"), ncfs[2], "inpt-ncfs3-graph")
+          inptRenderToolComparison($("#inpt-ncfs4"), ncfs[3], "inpt-ncfs4-graph")        
+          
+          // Render tool evaluation table
+          renderToolEvaluationTable([ncfs[0], ncfs[1], ncfs[2], ncfs[3]], "#inpt-evaluation", "#inptToolDescriptionTemplate", "#output-best")
+        },
+        error: function(error) {
+          console.error("Upload failed:", error);
+          $(".loader").hide();
+        }
+      });
+    }
+  }
+
+  // Retrieves the actual and forecasted values of each NCFS tool
+  function inptRenderToolComparison(ncfs, data, graphID) {
+    const actual = data.actual_value;
+    const forecasted = data.forecasted_value;
+    var selectedFactors = data.selected_factor;
+    var description = "";
+
+    selectedFactors = selectedFactors.split(", ");
+
+    const socioeconomicFactors = {
+      "population_rate"   : "Population Rate",
+      "education_rate"    : "Education Rate",
+      "poverty_rate"      : "Poverty Rate",
+      "inflation_rate"    : "Inflation Rate",
+      "unemployment_rate" : "Unemployment Rate",
+      "gdp"               : "Gross Domestic Product (GDP)",
+      "cpi"               : "Consumer Price Index (CPI)"
+    }
+
+    // Convert selected factors to readable names
+    const readableFactors = selectedFactors.map(factor => socioeconomicFactors[factor] || factor);
+
+    // Join the readable names into a string
+    selectedFactors = readableFactors.join(", ");
+
+    // Determine the relationship between actual and forecasted theft incidents
+    if (actual > forecasted) {
+      description = "forecasted theft incidents is lower than the actual incidents";
+    } else if (forecasted > actual) {
+      description = "actual theft incidents is lower than the forecasted incidents";
+    } else {
+      description = "forecasted theft incidents equivalent to the actual incidents";
+    }
+    
+    // Create an object to hold values for Mustache rendering
+    const toolFields = {
+      factors: graphID.match(/\d+/),
+      graphID: graphID,
+      description: description,
+      difference: (actual - forecasted).toFixed(2),
+      actual: actual,
+      forecasted: forecasted,
+      selectedFactors: selectedFactors,
+      mad: data.mad,
+      mae: data.mae,
+      rmse: data.rmse,
+      mape: data.mape
+    };
+
+    $.Mustache.add("inptToolComparison", $("#inptToolComparisonTemplate").html());
+    $(ncfs).html($.Mustache.render("inptToolComparison", toolFields));
+    renderBarGraph($("#" + graphID)[0].getContext("2d"), [actual, forecasted]);
+  }
+
+  function startOver() {
+    $("#output, .loader").fadeOut(400);
+    $("#input").show();
+
+    // Clear the input fields
+    $("#location, #crime-data").val('');
+  }
+
+</script>

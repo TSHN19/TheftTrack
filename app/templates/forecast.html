@@ -1,0 +1,1071 @@
+<!--
+===========================================================================================================
+File: Forecast Section for TheftTrackCHCG Application
+Programmers: Tashiana Mae C. Bandong and Alyssa Nicole B. Ramos
+Date Written: September 20, 2024
+Date Revised: October 18, 2024
+
+Where the program fits in the general system design:
+    This HTML file is part of the front-end UI of the TheftTrackCHCG application. It provides the main functionality for
+    users to explore theft forecasting data and understand trends over different time periods, supporting informed
+    decision-making by presenting crime-related predictions in an accessible manner.
+
+Purpose: 
+    This HTML file defines the forecast section of the TheftTrackCHCG web application. It provides users with
+    the ability to view and interact with weekly, monthly, and yearly theft forecasts for Chicago.
+
+    The section includes:
+    - Inputs for users to select the date and frequency (week, month, year) of forecasting.
+    - A line graph displaying the forecasted theft values.
+    - Navigation buttons for users to browse different time periods.
+    - An accordion providing detailed information about the prediction tool selection.
+    - JavaScript functionality to fetch, render, and display the forecast data dynamically using Chart.js, Mustache templates, and jQuery.
+    - CSS styling to ensure a visually appealing, interactive, and responsive user experience.
+    - Description rendering to display insights based on forecast data.
+    - Tool comparison descriptions and an evaluation table providing performance metrics for different models.
+
+Data Structures:
+    - Objects and arrays used in JavaScript for data storage and processing.
+    - HTML elements like input, buttons, and containers to hold user interactions and graphical content.
+
+Algorithms:
+    - Forecast Data Retrieval: AJAX requests are used to fetch theft forecast data based on user inputs.
+    - Graph Rendering: Chart.js is used to plot line graphs for the given data points dynamically.
+    - Date Navigation: JavaScript functions manage the navigation between different time periods using previous and next buttons.
+    - Description Rendering: JavaScript functions generate descriptive insights about the forecasted data for each selected period.
+    - Tool Comparison Rendering: JavaScript functions render descriptions and generate evaluation tables to compare model performance.
+
+Control:
+    - The JavaScript functions handle user interactions, such as changing the forecast frequency and navigating between different periods.
+    - The accordion is managed to expand or collapse additional tool details based on user clicks.
+    - Descriptive insights are updated dynamically based on the selected forecasting period.
+    - Tool comparison and evaluation metrics are dynamically rendered to assist in understanding model performance.
+
+===========================================================================================================
+-->
+
+<section id="forecast" class="forecast bg-orange-100">
+  <div class="description-body font-semibold">
+    <h2 id="forecast-header" class="text-md font-extrabold text-blue">
+      Weekly Theft Forecasting in Chicago
+    </h2>
+
+    <!-- Date and Frequency Input -->
+    <div class="options">
+      <div class="date-text">
+        <h4 class="text-desc">Choose a Date:</h4>
+        <input class="date" type="month" id="date-input" name="date-input" min="2015-01" max="2024-10" value="2024-10"/>
+      </div>
+      <div class="select-text">
+        <h4 class="text-desc">Choose Frequency:</h4>
+        <select id="period" name="period">
+          <option value="Week" selected>Weekly</option>
+          <option value="Month">Monthly</option>
+          <option value="Year">Yearly</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Line Graph Rendering -->
+    <div id="graph-container">
+       <!-- Previous Button -->
+      <a href="javascript:void(0);" onclick="previousPeriod()" class="arrow-button">
+        <img src="/static/images/arrow-left.png" alt="Previous Month" />
+      </a>
+      <!-- Line Graph Container -->
+      <div id="line-graph"></div>
+       <!-- Next Button -->
+      <a href="javascript:void(0);" onclick="nextPeriod()" class="arrow-button"> 
+        <img src="/static/images/arrow-right.png" alt="Next Month" />
+      </a>
+    </div>
+
+    <!-- Line Graph Description Rendering -->
+    <div id="description-container">
+      <div id="graph-description"></div>
+    </div>
+  </div>
+
+  <!-- Main container for the content -->
+  <div id="tool-about" class="containers">
+    <div class="accordion-content">
+      <h1 id="best-tool">Tool Selection Behind the Forecast</h1>
+      <!-- Row containing NCFS sections for 1 and 2 factors -->
+      <div class="tool-row">
+        <div id="ncfs1" class="content-section"></div>
+        <div id="ncfs2" class="content-section"></div>
+      </div>
+      <!-- Row containing NCFS sections for 3 and 4 factors -->
+      <div class="tool-row">
+        <div id="ncfs3" class="content-section"></div>
+        <div id="ncfs4" class="content-section"></div>
+      </div>
+      <!-- Table for NCFS 1 to 4 Model Evaluation -->
+      <div id="tool-evaluation"></div>
+    </div>
+  </div>
+
+  <!-- Initial button position -->
+  <button type="button" id="accordion" class="button">See More Details</button>
+</section>
+
+<style>
+  .forecast {
+    padding: 2vw 0;
+  }
+
+  .forecast h2 {
+    text-align: center;
+  }
+
+  #forecastChart {
+    width: 50vw;
+    height: auto;
+    margin: auto;
+    background-color: #feae6f;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+  }
+
+  #graph-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .arrow-button img {
+    width: 5vw;
+    margin: 0 5vw;
+  }
+
+  .options {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+  }
+
+  /* Graph Description */
+  #description-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 3vw;
+  }
+
+  #graph-description {
+    width: 60vw;
+    font-weight: normal;
+    font-size: 2.3vh;
+    text-align: justify;
+    justify-content: center;
+    line-height: 1.3;
+  }
+
+  #graph-description h1 {
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .periodical-description {
+    margin-bottom: 1vw;
+    max-width: 60vw;
+  } 
+
+  .periodical-description p {
+    margin-left: 3vw;
+    margin-right: 3vw;
+    margin-top: 1vw;
+    height: auto;
+  }
+
+  /* Date Button */
+  .date-text {
+    display: flex;
+    align-items: center;
+    max-width: 320px;
+    margin-bottom: 20px;
+  }
+
+  .date-container {
+    display: inline-flex;
+    align-items: center;
+    background-color: #feae6f;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .date-container label {
+    font-family: "Inter", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 1px;
+    color: #01204e;
+  }
+
+  input[type="month"] {
+    margin-left: 20px;
+    padding: 5px;
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background-color: #feae6f;
+    color: #01204e;
+    cursor: pointer;
+    outline: none;
+  }
+
+  input[type="month"]:focus {
+    background-color: #feae6f;
+    font-family: "Inter", sans-serif;
+    outline: none;
+  }
+  
+  /* Select Button */
+  .date-text, .select-text {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  select {
+    padding: 5px;
+    margin-left: 20px;
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background-color: #feae6f;
+    color: #01204e;
+    cursor: pointer;
+    outline: none;
+  }
+
+  select:focus {
+    background-color: #feae6f;
+    font-family: "Inter", sans-serif;
+    outline: none;
+  }
+
+  /* More Info Accordion */
+  .containers {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.5s ease-out;
+    margin-top: 2vh;
+    padding: 10px;
+  }
+
+  .containers h1 {
+    font-size: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .containers h2 {
+    text-align: center;
+    font-size: 18px;
+    margin: 20px 0 10px;
+  }
+
+  .tool-row {
+    margin-top: 15px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    width: 70vw;
+    flex-wrap: wrap;
+  }
+
+  .content-section {
+    flex-direction: column;
+    max-width: 33vw;
+    margin: 10px;
+    border: 2px solid black;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .tool-description {
+    margin: 10px;
+    text-align: justify;
+  }
+
+  /* More Info Button */
+  .button {
+    display: block;
+    background-color: #01204e;
+    color: #feae6f;
+    font-weight: bold;
+    font-family: "Inter", sans-serif;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: auto;
+    margin-top: 30px;
+  }
+
+  .button label {
+    color: #01204e;
+    font-family: "Inter", sans-serif;
+  }
+
+  .button:hover {
+    background-color: #feae6f;
+    color: #01204e;
+  }
+
+  /* Table Design*/
+  table {
+    font-family: Arial, sans-serif;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 2px solid #000000;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th,
+  td {
+    padding: 20px;
+    text-align: center;
+    border: 2px solid #000000;
+  }
+  th {
+    background-color: #01204e;
+    color: white;
+    border: 2px solid #000000;
+  }
+  tr:hover {
+    background-color: #f1f1f148;
+  }
+
+  .table-description {
+    width: 70vw;
+    margin: auto;
+    text-align: justify;
+  }
+
+</style>
+
+<!-- Chart.js: Renders Chart, -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+<!-- jQuery: DOM manipulation -->
+<script src="../static/js/jquery.js"></script>
+<!-- Mustache: templating -->
+<script src="../static/js/mustache.js"></script>
+<!-- jQuery plugin: Mustache integration -->
+<script src="../static/js/jquery.mustache.js"></script>
+
+<!-- Line Graph Template -->
+<script id="lineGraphTemplate" type="text/template">
+  <canvas id="[[graphID]]"></canvas>
+</script>
+
+<!-- Description Template -->
+<script id="graphDescriptionTemplate" type="text/template">
+  <h1>[[header]]</h1>
+  <p>The graph illustrates the [[period]]ly theft rates in [[location]] for the span of [[range]]. Each point on the graph represents the number of [[type]] thefts during each [[period]], providing insights into trends over time.</p>
+  <div class="periodical-description">
+    [[#graphDescription]]
+    <p><b>[[period_label]]:</b> [[description]] <i>[[range]]</i></p>
+    [[/graphDescription]]
+  </div>
+  <p>Overall, the span of [[range]] [[tense]] of [[total_value]] theft incidents across the [[period_count]] [[period]]s, resulting in a [[period]]ly average theft rate of [[average]] incidents.</p>
+</script>
+
+<!-- NCFS 1 to 4 Tool Comparison Template -->
+<script id="toolComparisonTemplate" type="text/template">
+  <h2>NCFS with [[factors]] Factors</h2>
+  <canvas id="[[graphID]]"></canvas>
+  <p class="tool-description">
+    <div style="text-align: justify; color: #01204e; font-weight: bold; margin: 0 10px;">
+      The NCFS tool considers [[factors]] socioeconomic factor/s. The graph indicates that the [[description]], with an average difference of <span style="text-decoration: underline">[[difference]]</span>
+    </div>
+    <!-- Actual and forecasted values -->
+    <span style="text-align: center; margin-bottom: 20px;">
+        <br /><b style="color: #01204e">Actual Theft Incidents:</b> <span style="color: #f18634;  font-weight: bold;">[[actual]]</span>
+        <br /><b style="color: #01204e">Forecasted Theft Incidents:</b> <span style="color: #f18634;  font-weight: bold;">[[forecasted]]</span>
+        <br><br /><b style="color: #01204e">Selected Factors:</b> <span style="color: #f18634;  font-weight: bold;">[[selectedFactors]]</span>
+    </span>
+  </p>
+</script>
+
+<!-- Tool Evaluation Metrics Table -->
+<script id="tableEvaluationTemplate" type="text/template">
+  <div class="table-description">
+    <table>
+      <thead>
+        <tr>
+          <th>Tool</th>
+          <th>Mean Absolute Deviation</th>
+          <th>Mean Absolute Error</th>
+          <th>Root Mean Square Error</th>
+          <th>Mean Absolute Percentage Error</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[#toolEvaluation]]
+        <tr>
+          <td><strong>[[tool]]</strong></td>
+          <td>[[mad]]</td>
+          <td>[[mae]]</td>
+          <td>[[rmse]]</td>
+          <td>[[mape]]%</td>
+        </tr>
+        [[/toolEvaluation]]
+      </tbody>
+    </table>
+    <p style="line-height: 1.5">The <b>[[bestModel]] Model</b> is the best option for forecasting, showing the smallest errors with a Mean Absolute Error (MAE) of [[bestMAE]], a Mean Absolute Percentage Error (MAPE) of [[bestMAPE]]%, and a Root Mean Square Error (RMSE) of [[bestRMSE]]. On the other hand, the <b>[[leastModel]] Model</b> has the largest errors, with a MAE of [[leastMAE]] and an RMSE of [[leastRMSE]], making it the least accurate. The <b>[[unselected1]]</b> and <b>[[unselected2]] Models</b> perform reasonably well but don’t quite match the accuracy of [[bestModel]]. <b>Overall, [[bestModel]] is the most reliable choice for selecting factors for theft predictions.</b></p>
+  </div>
+</script>
+
+<script>
+  $(document).ready(function () {
+    Mustache.tags = ["[[", "]]"];
+    periodSelection("Week", "2024-10");
+    toolComparison();
+    toolEvaluationTable();
+    
+    // Event listener for the accordion to show/hide details
+    $("#accordion").on("click", function () {
+      const containers = $(".containers");
+      const button = $(this);
+      if (containers.css("max-height") !== "0px") {
+        containers.css("max-height", "0");
+        button.text("See More Details");
+        const targetElement = document.getElementById("forecast");
+        window.scrollTo({ 
+          top: targetElement.offsetTop - 100,
+          behavior: "smooth" 
+        });
+        setTimeout(() => {
+          periodSelection($("#period").val(), $("#date-input").val());
+        }, 400);
+      } else {
+        containers.css("max-height", containers[0].scrollHeight + "px");
+        button.text("Hide");
+        const targetElement = document.getElementById("tool-about");
+        const vh = window.innerHeight * 0.10; 
+        window.scrollTo({ 
+          top: targetElement.offsetTop - vh,
+          behavior: "smooth" 
+        });
+        toolComparison();
+        toolEvaluationTable();
+      }
+    });
+
+    // Event listener for input changes on the date input field
+    $("#date-input").on("input", function () {
+      const selectedPeriod  = $("#period").val();
+      const selectedDate    = $(this).val();
+      periodSelection(selectedPeriod, selectedDate);
+    });
+
+    // Event listener for changes in the period dropdown
+    $("#period").on("input", function () {
+      const selectedPeriod  = $(this).val();
+      const selectedDate    = $("#date-input").val();
+      $("#forecast-header").html(`${selectedPeriod}ly Theft Forecasting in Chicago`);
+      periodSelection(selectedPeriod, selectedDate);
+    });
+  });
+
+  // Handles selection of period (Week, Month, Year) and the associate date
+  function periodSelection(selectedPeriod, selectedDate) {
+    getTheftValues(selectedPeriod == "Year" ? "" : selectedDate);
+    $(".arrow-button").toggle(selectedPeriod != "Year");
+  }
+
+  // Fetches the theft values based on the selected date and period
+  function getTheftValues(selectedDate) {
+    const selectedPeriod = $("#period").val();
+    $.ajax({
+      url: '/retrieve/theft_values',
+      method: 'POST',
+      dataType: 'json',
+      data: { date: selectedDate, period: selectedPeriod },
+      success: function(data) {
+        const forecastFunctions = {
+          "Week"  : weeklyForecast,
+          "Month" : monthlyForecast,
+          "Year"  : yearlyForecast
+        };
+
+        // Call the function for each period: Data, Chart Container, Chart Canvas, Description Container, Location
+        forecastFunctions[selectedPeriod](data, "#line-graph", "forecastChart", "#graph-description", "Chicago");
+      },
+      error: function(error) {
+        console.error('Error fetching theft values result', error);
+      }
+    });
+  }
+
+  // Function to forecast/display theft values on a weekly basis
+  function weeklyForecast(data, container, graphID, descContainer, location) {
+    const yValues       = data.theft_values;
+    const week_starts   = data.week_starts;
+    const week_ends     = data.week_ends;
+    const selectedDate  = $("#date-input").val();
+    const date          = selectedDate.split("-"); 
+    const months        = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+    const range         = months[date[1] - 1] + " " + date[0];
+    const week_ranges   = [];
+
+    let type  = "";
+    let tense = "";
+
+    // Checks if the selected date has forecasted data
+    if (date[0] == 2024 && date[1] > 9) {
+      type  = "forecasted";
+      tense = "will experience an estimate of";
+
+      // Formats each week start and end to a week range
+      for (let i = 0; i < yValues.length; i++) {
+        const start       = week_starts[i].split("-");
+        const end         = week_ends[i].split("-");
+        const month_start = months[start[1] - 1].slice(0, 3);
+        const month_end   = months[end[1] - 1].slice(0, 3);
+        week_ranges.push(`${start[2]} ${month_start} to ${end[2]} ${month_end}`);
+      }
+    }
+    // If the selected date has actual data
+    else {
+      type = "";
+      tense = "experienced a total";
+
+      // Formats each week start and end to a week range
+      for (let i = 0; i < yValues.length; i++) {
+        const start       = week_starts[i].split("/");
+        const end         = week_ends[i].split("/");
+        const month_start = months[start[1] - 1].slice(0, 3);;
+        const month_end   = months[end[1] - 1].slice(0, 3);;
+        week_ranges.push(`${start[0]} ${month_start} to ${end[0]} ${month_end}`);
+      }
+    }
+
+    renderLineGraph(yValues, [], container, graphID);
+    renderGraphDescription(descContainer, yValues, week_ranges, range, range, type, tense, location);
+  }
+
+  // Function to forecast/display theft values on a monthly basis
+  function monthlyForecast(data, container, graphID, descContainer, location) {
+    const months        = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+    const values        = data.theft_values;
+    const week_ends     = data.week_ends;
+    const week_count    = data.week;
+    const type          = "";
+    const tense         = "experienced a total";
+    const year          = (week_ends[1]).split("/")[2];
+    const theft_month   = [];
+    const month_ranges  = [];
+    
+    let monthIndex  = 0;
+    let theft       = values[0];
+    let month       = "";
+    let end         = [];
+
+    // Computes the total theft values for each month
+    for (let i = 1; i < values.length; i++) {
+      const currentWeek = week_count[i];
+      end = week_ends[i].split("-");
+
+      // Reset to new month when week count goes back to 1
+      if (currentWeek === 1 && i !== 0) {
+        month = months[monthIndex];
+        theft_month.push(Math.round(theft));
+        month_ranges.push(month);
+        theft = values[i];
+        monthIndex = (monthIndex + 1) % 12; 
+      }
+      // If the values is from the forecasted table 
+      else if (week_ends[i].includes("-") && end[1] - 2 == monthIndex) {
+        month = months[monthIndex];
+        theft_month.push(Math.round(theft));
+        month_ranges.push(month);
+        theft = values[i];
+        monthIndex = (monthIndex + 1) % 12; 
+      } 
+      // Increment values of theft within same months
+      else {
+        theft += values[i];
+      }
+
+      // Handle final iteration to ensure the last month is pushed
+      if (i === values.length - 1) {
+        theft_month.push(Math.round(theft));
+        month_ranges.push(months[monthIndex]);
+      }
+    }
+    const range = month_ranges[0] + " to " + month_ranges[month_ranges.length - 1] + " of " + year;
+    renderLineGraph(theft_month, month_ranges, container, graphID);
+    renderGraphDescription(descContainer, theft_month, month_ranges, year, range, type, tense, location);
+  }
+
+  // Function to forecast/display theft values on a yearly basis
+  function yearlyForecast(data, container, graphID, descContainer, location) {
+    const values      = data.theft_values;
+    const week_starts = data.week_starts;
+    const week_ends   = data.week_ends;
+    const type        = "";
+    const tense       = "experienced a total";
+    const theft_year  = [];
+    const year_ranges = [];
+
+    let theft = 0;
+    let year = 0;
+    
+    // Computes the total theft values for each year
+    for (let i = 0; i < values.length; i++) {
+      var end = splitWeek(week_ends[i]);
+
+      // Initialize theft and year on first iteration
+      if (i == 0) {
+        theft = values[i];
+        year = end[2];
+      } 
+      else {
+        const lastEnd = week_ends[i - 1].includes("-")
+          ? week_ends[i - 1].split("-")[0] 
+          : week_ends[i - 1].split("/")[2];
+
+        // If current year matches the previous, accumulate theft value
+        if (lastEnd == end[2]) {
+          theft += values[i];
+        } 
+        else {
+          theft_year.push(Math.round(theft));
+          year_ranges.push(year);
+          theft = values[i];
+          year = end[2];
+        }
+      }
+
+      // Handle final iteration to ensure the last year is pushed
+      if (i === values.length - 1) {
+        theft_year.push(Math.round(theft));
+        year_ranges.push(year);
+      }
+    }
+    const range = year_ranges[0] + " to " + year_ranges[year_ranges.length - 1];
+    renderLineGraph(theft_year, year_ranges, container, graphID);
+    renderGraphDescription(descContainer, theft_year, year_ranges, range, range, type, tense, location);
+  }
+
+  // Splits the week based on the delimiter
+  function splitWeek(week_end) {
+    var end = [];
+    if (week_end.includes("-")) {
+      const endSplit = week_end.split("-");
+      end = [endSplit[2], endSplit[1], endSplit[0]];
+    } else {
+      end = week_end.split("/");
+    }
+    return end;
+  }
+
+  // Renders the line graph using the passed values
+  function renderLineGraph(yValues, ranges, container, graphID) {
+    $.Mustache.add("lineGraph", $("#lineGraphTemplate").html());
+    $(container).html($.Mustache.render("lineGraph", { graphID: graphID }));
+    
+    const selectedPeriod = $("#period").val();
+    var xValues = [];
+
+    // If no ranges provided, dynamically generate labels based on the period
+    if (ranges == 0) {
+      xValues = yValues.map((value, index) => {
+        return `${selectedPeriod} ${index + 1}`;
+      });
+    } else {
+      xValues = ranges;
+    }
+
+    // Adds allowance on the rendered graph
+    const maxYValue = Math.max(...yValues) + 20;
+    const minYValue = Math.min(...yValues) - 20;
+
+    // Generates the line graph using yValues
+    new Chart($("#" + graphID), {
+      type: "line",
+      data: {
+        labels: xValues,
+        datasets: [{
+          fill: false,
+          lineTension: 0,
+          borderColor: "#01204E",
+          borderWidth: 3,
+          data: yValues,
+          pointBackgroundColor: "#01204E",
+          pointBorderWidth: 0,
+          pointRadius: 5,
+        }],
+      },
+      options: {
+        scales: {
+          y: {
+            min: minYValue,
+            max: maxYValue,
+            ticks:  { stepSize: 20, color: "#01204E", font: { size: 14 } },
+            grid:   { color: "#01204E", lineWidth: 1 },
+          },
+          x: {
+            ticks:  { color: "#01204E", font: { size: 14 } },
+            grid:   { display: false },
+          },
+        },
+        plugins: { legend: { display: false } },
+        responsive: true,
+        maintainAspectRatio: false,
+      },
+    });
+  }
+
+ // Renders the graph description of the selected date using the selected period
+ function renderGraphDescription(descContainer, values, period_ranges, header, range, type, tense, location) {
+    var total = 0;
+    var average = 0;
+    var description = "";
+    var descriptionLine = {};
+    var descriptionList = [];
+    const selectedPeriod = $("#period").val();
+    
+    // Iterates through the values, calculates total, and generates description
+    for (let i = 0; i < values.length; i++) {
+      total += values[i];
+      description = descriptionTemplate(values, selectedPeriod, i, values[i], range, period_ranges);
+      descriptionLine = {
+        period_label: selectedPeriod == "Week" ? selectedPeriod + " " + (i + 1) : period_ranges[i],
+        range: selectedPeriod == "Week" ? "(" + period_ranges[i] + ")" : "",
+        description: description
+      };
+      descriptionList.push(descriptionLine);
+    }
+    average = total / values.length;
+
+    // Prepare data for mustache rendering
+    const descriptionFields = {
+      location: location,
+      period: selectedPeriod,
+      header: header,
+      range: range,
+      type: type,
+      tense: tense,
+      total_value: Math.round(total),
+      period_count: values.length,
+      average: Math.round(average),
+      graphDescription: descriptionList
+    }
+    $.Mustache.add("graphDescription", $("#graphDescriptionTemplate").html());
+    $(descContainer).html($.Mustache.render("graphDescription", descriptionFields));
+  }
+
+  // Assigns description based on graph point value
+  function descriptionTemplate(list, period, index, value, range, rangeList) {
+    var description = "";
+    var lastPeriod = "";
+    var currentPeriod = "";
+    const maxValue = Math.max(...list);
+    const minValue = Math.min(...list);
+
+    // Assign current and last period
+    if (period == "Week") {
+      lastPeriod = `${period} ${index}`;
+      currentPeriod = `${period} ${index + 1}`;
+    } 
+    else {
+      lastPeriod = `${rangeList[index - 1]}`;
+      currentPeriod = `${rangeList[index]}`
+    }
+
+    // Starting description for each period
+    if (index == 0) {
+      if (period == "Week") {
+        description = ` The theft rate for ${period} ${index + 1} of ${range} started with ${Math.round(value)} theft incidents.`;
+      } else {
+        description = ` The theft rate for ${rangeList[index]} started with ${Math.round(value)} theft incidents.`;
+      }
+    }
+    // If value increased from previous
+    else if (list[index] > list[index - 1]) {
+      // If value increased from the last 2 previous periods
+      if (list[index - 1] > list[index - 2]) {
+        description += ` The theft rate continued to climb in ${currentPeriod} to ${Math.round(value)}, up by ${((((value - list[index - 1]) / list[index - 1])) * 100).toFixed(2)}% incidents from ${lastPeriod}.`;
+      } 
+      // If value recently increased
+      else {
+        description += ` The theft rate increased to ${Math.round(value)}, reflecting a rise of ${((((value - list[index - 1]) / list[index - 1])) * 100).toFixed(2)}% incidents from ${lastPeriod}.`;
+      }
+    } 
+    // If value decreased from previous
+    else if (list[index] < list[index - 1]) {
+      // If value decreased from the last 2 previous periods
+      if (list[index - 1] < list[index - 2]) {
+        description += ` The theft rate continued to drop in ${currentPeriod}} to ${Math.round(value)}, down by ${((((list[index - 1] - value) / list[index - 1])) * 100).toFixed(2)}% incidents from ${lastPeriod}.`;
+      } 
+      // If value recently decreased
+      else {
+        description += ` The theft rate decreased to ${Math.round(value)}, reflecting a drop of ${((((list[index - 1] - value)/ list[index - 1])) * 100).toFixed(2)}% incidents from ${lastPeriod}.`;
+      }
+    }
+    // If value is the same as previous
+    else if (list[index] == list[index - 1]) {
+      description += ` The theft rate continued unchanged in ${currentPeriod} at ${Math.round(value)} incidents, reflecting no change from ${lastPeriod}`;
+    }
+    
+    // If the value is highest in the graph
+    if (maxValue == value) {
+      if (period == "Week") {
+        description += ` This marks the peak of the month.`;
+      } else if (period == "Month") {
+        description += ` This marks the peak of the year.`;
+      } else {
+        description += ` This marks the peak of ${range}`;
+      }
+    } 
+    // If the value is lowest in the graph
+    else if (minValue == value) {
+      if (period == "Week") {
+        description += ` This marks the lowest point of the month.`;
+      } else if (period == "Month") {
+        description += ` This marks the lowest point of the year.`;
+      } else {
+        description += ` This marks the lowest point of ${range}`;
+      }
+      
+    }
+    return description;
+  }
+
+  // Renders the previous period from the selected date
+  function previousPeriod() {
+    const selectedPeriod  = $("#period").val();
+    const currentDate     = $("#date-input").val();
+    const date            = currentDate.split("-");
+    var year  = parseInt(date[0], 10);
+    var month = parseInt(date[1], 10);
+    
+    // Adjust the month if the selected period is Weekly, decrements only the year otherwise
+    if (selectedPeriod == "Week") {
+      month--;
+      // Handle case where the month is on the previous year
+      if (month == 0) {
+          month = 11; 
+          year--;
+      }
+    } else { year--; }
+    var newDate = year + "-" + String(month).padStart(2, '0');
+    
+    // Prevents going back beyond January 2015
+    if ((currentDate == "2015-01") || (currentDate.startsWith("2015") && selectedPeriod == "Month")) {
+      periodSelection(selectedPeriod, currentDate);
+    } else {
+      periodSelection(selectedPeriod, newDate);
+      $("#date-input").val(newDate);  
+    }
+  }
+  
+  // Renders the next period from the selected date
+  function nextPeriod() {
+    const selectedPeriod  = $("#period").val();
+    const currentDate     = $("#date-input").val();
+    const date            = currentDate.split("-");
+    var year  = parseInt(date[0], 10);
+    var month = parseInt(date[1], 10);
+
+    // Adjust the month if the selected period is Weekly, increments only the year otherwise
+    if (selectedPeriod == "Week") {
+      month++;
+      // Handle case where the month is on the next year
+      if (month == 13) {
+          month = 1; 
+          year++;
+      }
+    } else { year++; }
+    var newDate = year + "-" + String(month).padStart(2, '0');
+    
+    // Prevents going beyond October 2024
+    if ((currentDate == "2024-10") || (currentDate.startsWith("2024") && selectedPeriod == "Month")) {
+      periodSelection(selectedPeriod, currentDate);
+    }
+    else {
+      periodSelection(selectedPeriod, newDate);
+      $("#date-input").val(newDate);  
+    }
+  }
+
+  // Renders the graphs for each NCFS tool
+  function toolComparison() {
+    $.ajax({
+      url: "/retrieve/comparison",
+      method: "GET",
+      dataType: "json",
+      success: function (data) {
+        const ncfs1 = data.ncfs1;
+        renderToolComparison($("#ncfs1"), ncfs1, "ncfs1-graph")
+
+        const ncfs2 = data.ncfs2;
+        renderToolComparison($("#ncfs2"), ncfs2, "ncfs2-graph")
+
+        const ncfs3 = data.ncfs3;
+        renderToolComparison($("#ncfs3"), ncfs3, "ncfs3-graph")
+
+        const ncfs4 = data.ncfs4;
+        renderToolComparison($("#ncfs4"), ncfs4, "ncfs4-graph")
+      },
+      error: function (error) {
+        console.error("Error fetching performance data:", error);
+      },
+    });
+  }
+
+  // Retrieves the actual and forecasted values of each NCFS tool
+  function renderToolComparison(ncfs, data, graphID) {
+    let [actual, forecasted, selectedFactors] = data;
+    let description = "";
+
+    selectedFactors = selectedFactors.split(", ");
+
+    const socioeconomicFactors = {
+      "population_rate"   : "Population Rate",
+      "education_rate"    : "Education Rate",
+      "poverty_rate"      : "Poverty Rate",
+      "inflation_rate"    : "Inflation Rate",
+      "unemployment_rate" : "Unemployment Rate",
+      "gdp"               : "Gross Domestic Product (GDP)",
+      "cpi"               : "Consumer Price Index (CPI)"
+    }
+
+    // Convert selected factors to readable names
+    const readableFactors = selectedFactors.map(factor => socioeconomicFactors[factor] || factor);
+
+    // Join the readable names into a string
+    selectedFactors = readableFactors.join(", ");
+
+    // Determine the relationship between actual and forecasted theft incidents
+    if (actual > forecasted) {
+      description = "forecasted theft incidents is lower than the actual incidents";
+    } else if (forecasted > actual) {
+      description = "actual theft incidents is lower than the forecasted incidents";
+    } else {
+      description = "forecasted theft incidents equivalent to the actual incidents";
+    }
+    
+    // Create an object to hold values for Mustache rendering
+    const toolFields = {
+      factors: graphID.match(/\d+/),
+      graphID: graphID,
+      description: description,
+      difference: (actual - forecasted).toFixed(2),
+      actual: actual,
+      forecasted: forecasted,
+      selectedFactors: selectedFactors
+    };
+
+    $.Mustache.add("toolComparison", $("#toolComparisonTemplate").html());
+    $(ncfs).html($.Mustache.render("toolComparison", toolFields));
+    renderBarGraph($("#" + graphID)[0].getContext("2d"), [actual, forecasted]);
+  }
+
+  // Renders the bar graph for the passed on tool
+  function renderBarGraph(chartCanvas, yValues) {
+    const xValues = ["Actual", "Forecasted"];
+    const minYValue = Math.min(...yValues) - 20;
+    const maxYValue = Math.max(...yValues) + 20;
+
+    new Chart(chartCanvas, {
+      type: "bar",
+      data: {
+        labels:   xValues,
+        datasets: [{ data: yValues, backgroundColor: ["#01204E", "#FEB073"] }],
+      },
+      options: {
+        scales:   { 
+          y: { 
+            beginAtZero: false,
+            min: minYValue,
+            max: maxYValue 
+          } 
+        },
+        plugins:  { legend: { display: false } },
+      },
+    });
+  }
+
+  // Retrieves the performaance metrics of each NCFS tool
+  function toolEvaluationTable() {
+    $.ajax({
+      url: "/retrieve/perfmetrics",
+      method: "GET",
+      dataType: "json",
+      success: function (data) {
+        renderToolEvaluationTable(data, "#tool-evaluation", "#tableEvaluationTemplate", "#best-tool")
+      },
+      error: function (error) {
+        console.error("Error fetching performance data:", error);
+      },
+    });
+  }
+
+  // Renders the tool evaluation table
+  function renderToolEvaluationTable(data, container, template, toolHeader) {
+    const tools = ["NCFS 1", "NCFS 2", "NCFS 3", "NCFS 4"];
+
+    // Assign template values
+    const tableFields = {
+      toolEvaluation: data.map((ncfs, index) => ({
+        tool: tools[index],
+        mad: ncfs.mad,
+        mae: ncfs.mae,
+        rmse: ncfs.rmse,
+        mape: ncfs.mape,
+      })),
+    };
+
+    // Find the tool with the lowest mape
+    const bestTool = tableFields.toolEvaluation.reduce((lowest, current) => {
+      return (current.mape < lowest.mape) ? current : lowest;
+    });
+    
+    // Find the tool with the highest mape
+    const leastTool = tableFields.toolEvaluation.reduce((highest, current) => {
+      return (current.mape > highest.mape) ? current : highest;
+    });
+
+    // Get the two unselected tools (neiter the best nor the least)
+    const unselectedTools = tableFields.toolEvaluation.filter(tool => 
+      tool !== bestTool && tool !== leastTool
+    );
+
+    toolFactors = bestTool.tool.split(" ")[1];
+    $(toolHeader).text(`Tool Selection Behind the Forecast: NCFS with ${toolFactors} Factors`);
+
+    // Prepare data for Mustache rendering
+    const tableDescription = {
+      bestModel: bestTool.tool, bestMAE: bestTool.mae, bestMAPE: bestTool.mape, bestRMSE: bestTool.rmse,
+      leastModel: leastTool.tool, leastMAE: leastTool.mae, leastMAPE: leastTool.mape, leastRMSE: leastTool.rmse,
+      unselected1: unselectedTools[0].tool, unselected2: unselectedTools[1].tool
+    }
+
+    const combinedFields = { ...tableFields, ...tableDescription };
+    $.Mustache.add("template", $(template).html());
+    $(container).html($.Mustache.render("template", combinedFields));
+  }
+
+</script>

@@ -1,0 +1,77 @@
+<!--
+  Table: NCFS Model with 3 Factor - Actual vs Forecasted Values
+  Programmers: Angelica D. Ambrocio
+  Date Written: September 20, 2024
+  Date Revised: September 20, 2024
+
+  Description: 
+  This section presents a comparison between actual and forecasted values using the NCFS model with one factor. 
+  The data helps to evaluate the accuracy and performance of the forecasted values.
+-->
+
+<section id="ncfs3" class="ncfs3 bg-white">
+  <h2 class="section-title text-md font-extrabold text-blue">
+    NCFS Model with 3 Factors: Actual vs Forecasted
+  </h2>
+  <table class="min-w-full mt-4 border border-gray-300">
+    <thead>
+      <tr class="table_row">
+        <th>ID</th>
+        <th>Date</th>
+        <th>Actual Value</th>
+        <th>Forecasted Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in data %}
+      <tr>
+        <td>{{ row['id'] }}</td>
+        <td>{{ row['date'] }}</td>
+        <td>{{ row['actual_value'] }}</td>
+        <td>{{ row['forecasted_value'] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<style>
+  /* Section Styles */
+  .ncfs3 {
+    padding: 20px;
+  }
+
+  .section-title {
+    margin: 0 0 20px;
+  }
+
+  /* Table Styles */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th,
+  td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f0f0f0;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+</style>
+
+<script>
+  // Add your JavaScript here
+</script>
+

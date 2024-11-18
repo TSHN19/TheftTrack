@@ -1,0 +1,395 @@
+<!--
+===========================================================================================================
+File: Contacts Section for TheftTrackCHCG Application
+Programmers: Alyssa Nicole B. Ramos and Angelica D. Ambrocio
+Date Written: September 20, 2024
+Date Revised: October 16, 2024
+
+Purpose: 
+    This HTML file defines the contacts section of the TheftTrackCHCG web application. It provides information 
+    about the Chicago Police Department and its districts, including contact numbers, email addresses, and 
+    physical locations.
+
+    The section includes:
+    - Detailed contact information for different police districts and departments.
+    - Page navigation controls to switch between different police districts.
+    - JavaScript functionality to navigate through different pages of contacts.
+    - CSS styling to ensure a consistent and responsive layout for the contacts section.
+
+Where this file fits in the application:
+    This file is part of the front-end UI of the TheftTrackCHCG application. It is used to provide users with important
+    contact information about law enforcement agencies within Chicago, aiding them in quickly finding the relevant
+    police contacts.
+
+===========================================================================================================
+-->
+
+<section id="contacts" class="contacts-section">
+  <h2 class="text-md font-extrabold text-orange-300" style="margin-bottom: 0">
+    Chicago Police Department & Police Districts
+  </h2>
+
+  <!-- Page Content -->
+  <div class="content">
+    <div class="pages">
+      <!-- Previous Control -->
+      <div class="controls text-orange-300">
+        <i class="bx bx-left-arrow-circle" id="prev"></i>
+      </div>
+
+      <div>
+        <div class="station font-semibold text-orange-300">
+          <h3>Chicago Police Department</h3>
+          <p><i class="bx bxs-map"></i>  Public Safety Headquarters Building 3510 South Michigan Avenue Chicago, IL 60653</p>
+          <p><i class="bx bxs-envelope"></i>  CLEARPATH@chicagopolice.org</p>
+          <p><i class="bx bxs-phone-call"></i>  (312) 746-6000 (Non-emergency)</p>
+          <p><i class="bx bxs-phone-call"></i>  911 (Emergency)</p>
+        </div>
+
+         <!-- Page 1 -->
+         <div class="page active" id="page-1">
+          <h2 class="font-semibold text-orange-300" style="font-size: 3.5vh; margin: 15px 0; font-weight: bold;">
+            Chicago Police Department & Police Districts
+          </h2>
+          <div class="stations-list font-semibold text-orange-300">
+            <div class="station">
+              <h3>1st District: Central</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-745-4290</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.001District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-745-3694</p>
+              <p><i class="bx bxs-door-open"></i> 1718 South State Street, Chicago, IL 60616</p>
+            </div>
+            <div class="station">
+              <h3>2nd District: Wentworth</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-747-8366</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.002District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-747-5396</p>
+              <p><i class="bx bxs-door-open"></i> 5101 South Wentworth Avenue, Chicago, IL 60609</p>
+            </div>
+            <div class="station">
+              <h3>3rd District: Grand Crossing</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-747-8201</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.003District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-747-5935</p>
+              <p><i class="bx bxs-door-open"></i> 7040 South Cottage Grove Avenue, Chicago, IL 60637</p>
+            </div>
+            <div class="station">
+              <h3>4th District: South Chicago</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-747-8205</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.004District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-747-4559</p>
+              <p><i class="bx bxs-door-open"></i> 2255 East 103rd St., Chicago, IL 60617</p>
+            </div>
+            <div class="station">
+              <h3>5th District: Calumet</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-747-8210</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.005District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-747-5935</p>
+              <p><i class="bx bxs-door-open"></i> 727 East 111th Street, Chicago, IL 60628</p>
+            </div>
+            <div class="station">
+              <h3>6th District: Gresham</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-745-3610</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.006District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-745-3649</p>
+              <p><i class="bx bxs-door-open"></i> 7808 South Halsted Street, Chicago, IL 60620</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Page 2 -->
+        <div class="page" id="page-2">
+          <h2 class="font-semibold text-orange-300" style="font-size: 3.5vh; margin: 15px 0; font-weight: bold;">
+            Chicago Police Department & Police Districts
+          </h2>
+          <div class="stations-list font-semibold text-orange-300">
+            <div class="station">
+              <h3>7th District: Englewood</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-747-8220</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.007District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-747-6558</p>
+              <p><i class="bx bxs-door-open"></i> 1438 W. 63rd St., Chicago, IL 60636</p>
+            </div>
+            <div class="station">
+              <h3>8th District: Chicago Lawn</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-747-8730</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.008District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-747-8545</p>
+              <p><i class="bx bxs-door-open"></i> 3420 West 63rd St., Chicago, IL 60629</p>
+            </div>
+            <div class="station">
+              <h3>9th District: Deering</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-747-8227</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.009District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-747-5329</p>
+              <p><i class="bx bxs-door-open"></i> 3120 S. Halsted St., Chicago, IL 60608</p>
+            </div>
+            <div class="station">
+              <h3>10th District: Ogden</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-747-7511</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.010District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-747-7429</p>
+              <p><i class="bx bxs-door-open"></i> 3315 West Ogden Avenue, Chicago, IL 60623</p>
+            </div>
+            <div class="station">
+              <h3>11th Disctrict: Harrison</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-746-8386</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.011District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-746-4281</p>
+              <p><i class="bx bxs-door-open"></i> 3151 West Harrison St, Chicago, IL 60612</p>
+            </div>
+            <div class="station">
+              <h3>12th District: Near West</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-746-8396</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.012District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-746-9480</p>
+              <p><i class="bx bxs-door-open"></i> 1412 S. Blue Island, Chicago, IL 60608</p>
+            </div>
+          </div>
+        </div>
+       
+        <!-- Page 3 -->
+        <div class="page" id="page-3">
+          <h2 class="font-semibold text-orange-300" style="font-size: 3.5vh; margin: 15px 0; font-weight: bold;">
+            Chicago Police Department & Police Districts
+          </h2>
+          <div class="stations-list font-semibold text-orange-300">
+            <div class="station">
+              <h3>14th District: Harrison</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-744-8290</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.014District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-744-2422</p>
+              <p><i class="bx bxs-door-open"></i> 2150 North California Avenue, Chicago, IL 60647</p>
+            </div>
+            <div class="station">
+              <h3>15th District: Austin</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-743-1440</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.015District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-743-1366</p>
+              <p><i class="bx bxs-door-open"></i> 5701 West Madison Avenue, Chicago, IL 60644</p>
+            </div>
+            <div class="station">
+              <h3>16th District: Near North</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-742-4480</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.016District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-742-4421</p>
+              <p><i class="bx bxs-door-open"></i> 5151 North Milwaukee Avenue, Chicago, IL 60630</p>
+            </div>
+            <div class="station">
+              <h3>17th District: Albany Park</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-742-4410</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.017District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-742-5411</p>
+              <p><i class="bx bxs-door-open"></i> 4650 North Pulaski Road, Chicago, IL 60630</p>
+            </div>
+            <div class="station">
+              <h3>18th District: Near North</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-742-5870</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.018District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-742-5771</p>
+              <p><i class="bx bxs-door-open"></i> 1160 North Larrabee Avenue, Chicago, IL 60610</p>
+            </div>
+            <div class="station">
+              <h3>19th District: Town Hall</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-744-8320</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.019District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-744-4481</p>
+              <p><i class="bx bxs-door-open"></i> 850 West Addison St, Chicago, IL 60613</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Page 4 -->
+        <div class="page" id="page-4">
+          <h2 class="font-semibold text-orange-300" style="font-size: 3.5vh; margin: 15px 0; font-weight: bold;">
+            Chicago Police Department & Police Districts
+          </h2>
+          <div class="stations-list font-semibold text-orange-300">
+            <div class="station">
+              <h3>20th District: Lincoln</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-742-8714 / 312-742-8715</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.020District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-742-8803</p>
+              <p><i class="bx bxs-door-open"></i> 5400 North Lincoln Avenue, Chicago, IL 60625</p>
+            </div>
+            <div class="station">
+              <h3>22nd District: Morgan Park</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-745-0570</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.022District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-745-0814</p>
+              <p><i class="bx bxs-door-open"></i> 1900 West Monterey Avenue, Chicago, IL 60643</p>
+            </div>
+            <div class="station">
+              <h3>24th District: Rogers Park</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-744-5907</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.024District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-744-6928</p>
+              <p><i class="bx bxs-door-open"></i> 6464 North Clark Street, Chicago, IL 60626</p>
+            </div>
+            <div class="station">
+              <h3>25th District: Grand Central</h3>
+              <p><i class="bx bxs-phone-call"></i> 312-746-8605</p>
+              <p><i class="bx bxs-envelope"></i> CAPS.025District@chicagopolice.org</p>
+              <p><i class="bx bxs-printer"></i> 312-746-4353</p>
+              <p><i class="bx bxs-door-open"></i> 5555 West Grand Avenue, Chicago, IL 60639</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Page 5 -->
+        <div class="page" id="page-5">
+          <h2 class="font-semibold text-orange-300" style="font-size: 3.5vh; margin: 15px 0; font-weight: bold;">
+            Police Department Hotlines
+          </h2>
+          <div class="stations-list font-semibold text-orange-300">
+            <div class="station">
+              <h3>Anti-Gun Enforcement</h3>
+              <p><i class="bx bxs-phone-call"></i> (877) CPD-GUNS (273-4867)</p>
+            </div>
+            <div class="station">
+              <h3>Bomb & Arson Hotline</h3>
+              <p><i class="bx bxs-phone-call"></i> (773) 533-FIRE (3473)</p>
+            </div>
+            <div class="station">
+              <h3>Gang Hotline</h3>
+              <p><i class="bx bxs-phone-call"></i> (312) 746-GANG (4264)</p>
+              <p><i class="bx bxs-keyboard"></i> (312) 746-4276</p>
+            </div>
+            <div class="station">
+              <h3>Drug Hotline</h3>
+              <p><i class="bx bxs-phone-call"></i> (800) CRACK44 (272-2544)</p>
+              <p><i class="bx bxs-keyboard"></i> (312) 747-3673</p>
+            </div>
+            <div class="station">
+              <h3>CAPS Implementation Office</h3>
+              <p><i class="bx bxs-phone-call"></i> (312) 745-5900</p>
+            </div>
+            <div class="station">
+              <h3>Emergencies</h3>
+              <p><i class="bx bxs-phone-call"></i>  911</p>
+            </div>
+            <div class="station">
+              <h3>Non Emergencies</h3>
+              <p><i class="bx bxs-phone-call"></i> 311 (within city limits)</p>
+              <p><i class="bx bxs-phone-call"></i> 312-746-6000 (outside of city limits)</p>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <!-- Next Control -->
+      <div class="controls text-orange-300">
+        <i class="bx bx-right-arrow-circle" id="next"></i>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Container Styles */
+  .contacts-section {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 35px 20px;
+    text-align: center;
+  }
+
+  .content {
+    height: auto;
+  }
+
+  /* Page Styles */
+  .page {
+    display: none;
+    width: 60vw;
+    height: auto;
+  }
+
+  .page.active {
+    display: block;
+    width: 60vw;
+    height: auto;
+  }
+
+  .pages {
+    display: flex;
+    align-items: center;
+    gap: 3vw;
+    padding-bottom: 30px;
+  }
+
+  /* Stations List */
+  .stations-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .station {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100%;
+    width: 100%;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .station h3 {
+    margin: 0 0 10px;
+    font-size: 2.3vh;
+    font-weight: bold;
+  }
+
+  .station p {
+    margin: 0;
+    font-size: 2vh;
+    color: #01204e;
+  }
+
+  .station p i {
+    margin-right: 8px;
+  }
+  
+  /* Controls */
+  .controls {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 245px;
+  }
+
+  .controls i {
+    font-size: 60px;
+    cursor: pointer;
+  }
+
+  .controls i:hover {
+    color: #f5c77e;
+  }
+
+</style>
+
+<script>
+  // JavaScript for switching pages
+  const pages = document.querySelectorAll(".page");
+  let currentPage = 0;
+
+  document.getElementById("next").addEventListener("click", () => {
+    pages[currentPage].classList.remove("active");
+    currentPage = (currentPage + 1) % pages.length;
+    pages[currentPage].classList.add("active");
+  });
+
+  document.getElementById("prev").addEventListener("click", () => {
+    pages[currentPage].classList.remove("active");
+    currentPage = (currentPage - 1 + pages.length) % pages.length;
+    pages[currentPage].classList.add("active");
+  });
+</script>

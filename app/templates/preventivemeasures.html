@@ -1,0 +1,169 @@
+<!--
+===========================================================================================================
+File: Preventive Measures Section for TheftTrackCHCG Application
+Programmers: Angelica D. Ambrocio
+Date Written: September 20, 2024
+Date Revised: September 20, 2024
+
+Where the program fits in the general system design:
+    This HTML file represents the preventive measures section of the TheftTrackCHCG application. It aims to provide
+    users with safety guidelines to prevent theft-related crimes, contributing to public awareness and proactive safety.
+
+Purpose: 
+    This HTML file defines the preventive measures section of the TheftTrackCHCG web application, which includes:
+    - Displaying a list of preventive measures that users can take to protect themselves from theft-related crimes.
+    - Each measure is presented with an icon, a title, and a description for easy understanding.
+
+Data Structures, Algorithms, and Control:
+    - HTML elements such as `<div>` and `<i>` are used to structure the preventive measures and their corresponding icons.
+    - CSS Grid Layout: A grid is used to arrange preventive measures in rows, ensuring a responsive and user-friendly design.
+===========================================================================================================
+-->
+
+<section id="preventiveMeasures" class="PreventiveMeasures bg-blue">
+  <h2 class="section-title text-md font-extrabold text-orange-300">
+    Preventive Measures
+  </h2>
+  <p class="section-description text-orange-100">
+    We care about your safety and want to help you protect yourself from
+    theft-related crimes. Here are some tips you can follow:
+  </p>
+
+  <div class="tips-container">
+    <!-- First row -->
+    <div class="tip-item">
+      <i class="bx bx-show-alt icon text-orange-200"></i>
+      <div class="tip-content">
+        <h3 class="tip-title text-orange-300 font-semibold">
+          Be Aware of Your Surroundings
+        </h3>
+        <p class="tip-description text-orange-100 font-regular">
+          Stay vigilant, especially in crowded or unfamiliar areas.
+        </p>
+      </div>
+    </div>
+    <div class="tip-item">
+      <i class="bx bxs-lock icon text-orange-200"></i>
+      <div class="tip-content">
+        <h3 class="tip-title text-orange-300 font-semibold">
+          Secure Your Home
+        </h3>
+        <p class="tip-description text-orange-100 font-regular">
+          Install robust locks on doors and windows, and consider using security cameras or alarm systems for added protection.
+        </p>
+      </div>
+    </div>
+
+    <!-- Second row -->
+    <div class="tip-item">
+      <i class="bx bxs-diamond icon text-orange-200"></i>
+      <div class="tip-content">
+        <h3 class="tip-title text-orange-300 font-semibold">
+          Protect Your Valuables
+        </h3>
+        <p class="tip-description text-orange-100 font-regular">
+          Keep jewelry, electronics, and important documents in a safe or secure, hidden location.
+        </p>
+      </div>
+    </div>
+    <div class="tip-item">
+      <i class="bx bxs-car icon text-orange-200"></i>
+      <div class="tip-content">
+        <h3 class="tip-title text-orange-300 font-semibold">
+          Lock Your Vehicle
+        </h3>
+        <p class="tip-description text-orange-100 font-regular">
+          Always lock your motorcycle, car doors, and windows, and park in well-lit, populated areas.
+        </p>
+      </div>
+    </div>
+
+    <!-- Third row -->
+    <div class="tip-item">
+      <i class="bx bx-camera-home icon text-orange-200"></i>
+      <div class="tip-content">
+        <h3 class="tip-title text-orange-300 font-semibold">
+          Use Anti-Theft Accessories
+        </h3>
+        <p class="tip-description text-orange-100 font-regular">
+          Opt for anti-theft bags, wallets with RFID protection, or hidden pouches to keep your belongings safe.
+        </p>
+      </div>
+    </div>
+    <div class="tip-item">
+      <i class="bx bxs-bulb icon text-orange-200"></i>
+      <div class="tip-content">
+        <h3 class="tip-title text-orange-300 font-semibold">
+          Light Up Your Property
+        </h3>
+        <p class="tip-description text-orange-100 font-regular">
+          Install motion-sensor lights around your home to deter potential intruders from approaching.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Section Styles */
+  .PreventiveMeasures {
+    height: auto;
+    padding: 3vw 10px;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  .section-title {
+    margin-bottom: 1vw;
+  }
+
+  .section-description {
+    margin-bottom: 50px;
+    font-size: 2.3vh;
+    text-align: center;
+    padding: 0px 1vh;
+  }
+
+  /* Tips Layout */
+  .tips-container {
+    display: grid;
+    grid-template-columns: repeat(
+      2,
+      minmax(200px, 1fr)
+    );
+    gap: 5px;
+    justify-content: center; 
+  }
+
+  .tip-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    width: 35vw;
+    margin: auto;
+  }
+
+  .icon {
+    font-size: 2.5vw;
+    margin: 25px 0px 60px 0px;
+  }
+
+  .tip-content {
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+  }
+
+  .tip-title {
+    font-size: 2.4vh;
+    margin-bottom: 10px;
+  }
+
+  .tip-description {
+    font-size: 2.1vh;
+  }
+</style>
+
+<script>
+  // Add your JavaScript here
+</script>

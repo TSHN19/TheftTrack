@@ -1,0 +1,72 @@
+<!--
+  Table: Best Forecasted Values and Socio-Economic Factors
+  Programmers: Angelica D. Ambrocio
+  Date Written: September 20, 2024
+  Date Revised: September 20, 2024
+
+  Description: 
+  This section presents a table containing the best forecasted values along with socioeconomic factors. 
+  The data includes weekly forecasted values to help analyze trends over time.
+-->
+
+<section id="bestmodel" class="bestmodel bg-white">
+  <h2 class="section-title text-md font-extrabold text-blue">
+    Best Forecasted Values and Socio-Economic Factors
+  </h2>
+  <table class="min-w-full mt-4 border border-gray-300">
+    <thead>
+      <tr class="table_row">
+        <th>ID</th>
+        <th>Week Start</th>
+        <th>Week End</th>
+        <th>Forecasted Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if rows %} {% for row in rows %}
+      <tr>
+        <td>{{ row['id'] }}</td>
+        <td>{{ row['week_start'] }}</td>
+        <td>{{ row['week_end'] }}</td>
+        <td>{{ row['forecasted_value'] }}</td>
+      </tr>
+      {% endfor %} {% else %} {% endif %}
+    </tbody>
+  </table>
+</section>
+
+<style>
+  /* Section Styles */
+  .bestmodel {
+    padding: 20px;
+  }
+
+  .section-title {
+    margin: 0 0 20px;
+  }
+
+  /* Table Styles */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th,
+  td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f0f0f0;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+</style>

@@ -1,0 +1,80 @@
+<!--
+  Table: Model Performance Metrics (MAE, MAPE, RMSE, MAD, Actual, Forecasted, Selected Factors)
+  Programmers: Angelica D. Ambrocio
+  Date Written: September 20, 2024
+  Date Revised: September 20, 2024
+
+  Description: 
+  This section presents performance metrics of different models, including MAE, MAPE, RMSE, and MAD. 
+  It also displays the actual and forecasted values along with the selected factors used in each model.
+-->
+
+<section id="perfmetrics" class="perfmetrics bg-yellow-100">
+  <h2 class="section-title text-md font-extrabold text-blue">
+    Model Performance Metrics (MAE, MAPE, RMSE, MAD, Actual, Forecasted, Selected Factors)
+  </h2>
+  <table class="min-w-full mt-4 border border-gray-300">
+    <thead>
+      <tr class="table_row">
+        <th>Model</th>
+        <th>MAE</th>
+        <th>MAPE</th>
+        <th>RMSE</th>
+        <th>MAD</th>
+        <th>ACTUAL</th>
+        <th>FORECASTED</th>
+        <th>SELECTED FACTORS</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in data %}
+      <tr>
+        <td>{{ row['model'] }}</td>
+        <td>{{ row['MAE'] }}</td>
+        <td>{{ row['MAPE'] }}</td>
+        <td>{{ row['RMSE'] }}</td>
+        <td>{{ row['MAD'] }}</td>
+        <td>{{ row['actual_value'] }}</td>
+        <td>{{ row['forecasted_value'] }}</td>
+        <td>{{ row['selected_factors'] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<style>
+  /* Section Styles */
+  .perfmetrics {
+    padding: 20px;
+  }
+
+  .section-title {
+    margin: 0 0 20px;
+  }
+
+  /* Table Styles */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th,
+  td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f0f0f0;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+</style>

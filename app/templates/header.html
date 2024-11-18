@@ -1,0 +1,99 @@
+<!--
+===========================================================================================================
+File: Header Section for TheftTrackCHCG Application
+Programmers: Alyssa Nicole B. Ramos
+Date Written: September 20, 2024
+Date Revised: November 05, 2024
+
+Where the program fits in the general system design:
+    This HTML file is part of the front-end UI of the TheftTrackCHCG application. It provides the main navigation
+    header for users to easily access different sections of the application, ensuring a consistent user experience
+    across pages and enhancing usability.
+
+Purpose: 
+    This HTML file defines the header section of the TheftTrackCHCG web application, which includes:
+    - The logo and title of the application.
+    - A navigation bar with links to key sections of the website, such as Home, Forecast, Factors, Measures, Contacts, Validate, and About.
+    - JavaScript functionality to handle smooth scrolling behavior for user interactions.
+
+===========================================================================================================
+-->
+
+<header class="header bg-blue flex items-center">
+  <a href="#landing" class="title">
+    <img src="/static/images/Logo.png" alt="Logo"/>
+    <h1 class="text-white font-extrabold ml-2">TheftTrackCHCG</h1>
+  </a>
+  <div class="page-sections">
+    <a href="#landing">HOME</a>
+    <a href="#forecast">FORECAST</a>
+    <a href="#factors">FACTORS</a>
+    <a href="#preventiveMeasures">MEASURES</a>
+    <a href="#contacts">CONTACTS</a>
+    <a href="#validate">VALIDATE</a>
+    <a href="#about">ABOUT</a>
+  </div>
+</header>
+
+<style>
+  
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 12vh;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .title {
+    margin-left: 6vh;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 2.4vh;
+  }
+
+  .title img {
+    height: 9vh;
+    margin-right: 15px;
+  }
+
+  .page-sections {
+    margin-right: 3%;
+    font-size: 2.3vh;
+  }
+
+  .page-sections a {
+    color: white;
+    margin-left: 15px;
+    text-decoration: none;
+  }
+
+  .page-sections a:hover {
+    color: #FEAE6F;
+  }
+
+</style>
+
+<script>
+  // Selects all anchor links in the header, and scrolls viewport to the selected section
+  document.querySelectorAll('.page-sections a', 'title').forEach(anchor => {
+    anchor.addEventListener('click', function(event) {
+      event.preventDefault();
+      const targetID = this.getAttribute('href');
+      const targetElement = document.querySelector(targetID);
+      const vh = window.innerHeight * 0.11; 
+      const offsetPosition = targetElement.offsetTop - vh;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    });
+  });
+</script>

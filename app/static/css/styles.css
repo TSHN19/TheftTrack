@@ -1,0 +1,145 @@
+/* Scrollbar background */
+::-webkit-scrollbar {
+  width: 1vw;
+}
+
+/* Scrollbar track (background of the scrollbar) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1e8;
+}
+
+/* Scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background-color: #01204e;
+}
+
+/* Hover effect on the thumb */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #feae6f;
+}
+
+
+/* Global Styles */
+body {
+  font-family: "Inter", sans-serif; /* Font Families */
+}
+
+/* Font Colors */
+.text-white {
+  color: #ffff;
+}
+
+.text-blue {
+  color: #01204e;
+}
+
+.text-orange-100 {
+  color: #fbe8c6;
+}
+
+.text-orange-200 {
+  color: #f0ba94;
+}
+
+.text-orange-300 {
+  color: #feae6f;
+}
+
+.text-green {
+  color: #028391;
+}
+
+.text-black {
+  color: #000;
+}
+
+/* Font Sizes */
+.text-xxs {
+  font-size: 25px;
+}
+.text-xs {
+  font-size: 30px;
+}
+
+.text-sm {
+  font-size: 40px;
+}
+
+.text-md {
+  font-size: 6vh;
+}
+
+.text-lg {
+  font-size: 80px;
+}
+
+.text-xl {
+  font-size: 100px;
+}
+
+/* Font Weights */
+.font-regular {
+  font-weight: 400;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-extrabold {
+  font-weight: 800;
+}
+
+/* Background Colors */
+.bg-white {
+  background-color: #ffff;
+}
+
+.bg-blue {
+  background-color: #01204e;
+}
+
+.bg-orange-100 {
+  background-color: #f6dcac;
+}
+
+.bg-green {
+  background-color: #028391;
+}
+
+.bg-black {
+  background-color: #000;
+}
+
+/* Utility Classes */
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.relative {
+  position: relative;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.z-1000 {
+  z-index: 1000;
+}
+
+.p-4 {
+  padding: 1em;
+}

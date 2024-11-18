@@ -1,0 +1,98 @@
+<!--
+===========================================================================================================
+File: Landing Section for TheftTrackCHCG Application
+Programmers: Angelica D. Ambrocio
+Date Written: September 20, 2024
+Date Revised: September 20, 2024
+
+Where the program fits in the general system design:
+    This HTML file represents the landing page section of the TheftTrackCHCG application. It is the introductory
+    part of the UI that provides branding information and an inviting interface to attract users.
+
+Purpose: 
+    This HTML file defines the landing section of the TheftTrackCHCG web application, which includes:
+    - The application logo, name, and a welcoming message.
+    - A button to get started, which smoothly scrolls to the forecast section.
+
+Data Structures, Algorithms, and Control:
+    - HTML elements such as `<div>` and `<button>` for organizing content and handling user interaction.
+    - Smooth Scroll to Forecast: A JavaScript function handles the button click event, smoothly scrolling the viewport to the forecast section when the "GET STARTED" button is clicked, enhancing user navigation.
+    - The JavaScript function handles the button click event and scrolls the viewport to the forecast section.
+
+===========================================================================================================
+-->
+
+<section id="landing" class="landing flex items-center justify-center">
+  <div class="desktop content flex items-center justify-center">
+    <img src="/static/images/Logo.png" alt="Logo" class="logo-landing" />
+    <div>
+      <h1 class="TTM text-blue font-extrabold">TheftTrackCHCG</h1>
+      <h2 class="HW text-orange-300 font-extrabold">Hello, welcome!</h2>
+      <h3 class="TTN text-green font-bold">Track Theft Now.</h3>
+      <button
+        class="get-started-btn text-black text-xxs font-regular"
+        onclick="scrollToForecast()"
+      >
+        GET STARTED
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .landing {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+  }
+
+  .logo-landing {
+    height: 60vh;
+    width: auto;
+    margin: 2vw 3vw 2vw 0;
+  }
+
+  .TTM {
+    margin: 0;
+    font-size: 6vh;
+  }
+
+  .HW {
+    margin: 0;
+    font-size: 10vh;
+  }
+
+  .TTN {
+    margin-top: 3vh;
+    font-size: 4vh;
+  }
+
+  .get-started-btn {
+    width: 50%;
+    font-size: 1.5vw;
+    background-color: #f6dcac;
+    border-radius: 20px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-top: 1vw;
+  }
+
+  .get-started-btn:hover {
+    background-color: #f5c77e;
+  }
+
+</style>
+
+<script>
+  // Scrolls viewport to the forecast section
+  function scrollToForecast() {
+    const targetElement = document.getElementById("forecast");
+    window.scrollTo({ 
+      top: targetElement.offsetTop - 100,
+      behavior: "smooth" 
+    });
+  }
+</script>

@@ -1,0 +1,47 @@
+<!--
+===========================================================================================================
+File: Main Template for TheftTrackCHCG Application
+Programmers: Angelica D. Ambrocio
+Date Written: September 20, 2024
+Date Revised: September 20, 2024
+
+Where the program fits in the general system design:
+    This HTML file serves as the main template for the TheftTrackCHCG application. It incorporates multiple sections,
+    each representing a significant feature of the application, to create a cohesive and navigable user interface.
+
+Purpose: 
+    This HTML file extends the base template for the TheftTrackCHCG application, providing a structured layout
+    that includes the following key sections:
+    - Landing Page: Provides the introductory interface and branding information.
+    - Weekly Theft Forecast: Displays theft predictions based on historical data, with visual aids for better understanding.
+    - Factors Section: Displays socioeconomic factors in the form of a pie chart that influence crime trends.
+    - Preventive Measures: Provides suggested steps that can be taken to mitigate theft occurrences.
+    - Contacts Section: Lists contacts for Chicago Police Department and related hotlines.
+    - Validate Section: Allows users to validate specific data entries or results.
+
+Data Structures:
+    - Template Inheritance: Utilizes Jinja's extends and include for modularizing HTML components.
+    - HTML Sections: Each section includes its own set of elements to properly display content.
+
+===========================================================================================================
+-->
+
+{% extends "base.html" %} {% block content %}
+<!-- Landing Page Section -->
+<section>{% include 'landing.html' %}</section>
+
+<!-- Weekly Theft Forecast Section -->
+<section>{% include 'forecast.html' %}</section>
+
+<!-- Factors Section (Pie Chart) -->
+<section>{% include 'factors.html' %}</section>
+
+<!-- Preventive Measures Section -->
+<section>{% include 'preventivemeasures.html' %}</section>
+
+<!-- Contacts Section -->
+<section>{% include 'contacts.html' %}</section>
+
+<!-- Validate Section -->
+<section>{% include 'validate.html' %}</section>
+{% endblock %}

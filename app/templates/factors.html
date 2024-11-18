@@ -1,0 +1,201 @@
+<!--
+===========================================================================================================
+File: Socio-Economic Factors Section for TheftTrackCHCG Application
+Programmers: Alyssa Nicole B. Ramos
+Date Written: September 20, 2024
+Date Revised: October 16, 2024
+
+Purpose: 
+    This HTML file defines the socio-economic factors section of the TheftTrackCHCG web application. It displays 
+    key factors considered in the forecasting of theft-related crime rates, such as unemployment, poverty, CPI, etc.
+
+    The section includes:
+    - A pie graph illustrating the contributions of different socio-economic factors.
+    - Descriptions of each factor and their role in influencing crime rates.
+    - JavaScript functionality to fetch, render, and display data using Chart.js and Mustache templates.
+
+Where this file fits in the application:
+    This file is part of the front-end UI of the TheftTrackCHCG application. It provides users with insights into the 
+    socio-economic factors contributing to crime rates, helping them understand the underlying causes and data used 
+    in the forecasting model.
+
+===========================================================================================================
+-->
+
+<section id="factors" class="factors bg-white">
+  <h2 class="text-md font-extrabold text-blue">Socio Economic Factors</h2>
+  <div id="factors-content">
+    <!-- Pie Graph Container -->
+    <div id="pie-graph"></div>
+    
+    <!-- Factor Descriptions -->
+    <div class="description">
+      <p>
+        In forecasting theft-related crime rates, this application considered the
+        following socio-economic factors:
+      </p>
+      
+      <!-- Descriptions Container -->
+      <div id="factors-description"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #factors {
+    padding: 2vw;
+  }
+
+  #factors h2 {
+    text-align: center;
+  }
+
+  #factors-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 25px 0;
+  }
+
+  #pie-graph {
+    height: 25vw;
+    aspect-ratio: 1/1;
+    margin-right: 3vw;
+  }
+
+  .description {
+    width: 55%;
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: #01204e;
+    font-size: 1vw;
+    color: white;
+    text-align: justify;
+  }
+
+  #factors-description p {
+    margin-top: 1vw;
+  }
+
+</style>
+
+<!-- Chart.js: Renders Chart, -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+<!-- jQuery: DOM manipulation -->
+<script src="../static/js/jquery.js"></script>
+<!-- Mustache: templating -->
+<script src="../static/js/mustache.js"></script>
+<!-- jQuery plugin: Mustache integration -->
+<script src="../static/js/jquery.mustache.js"></script>
+
+<!-- Pie Graph Template -->
+<script id="pieGraphTemplate" type="text/template">
+  <canvas id="factorsChart" style="width:100%;max-width:600px"></canvas>
+</script>
+
+<!-- Factors Description -->
+<script id="factorsDescriptionTemplate" type="text/template">
+  [[#factorsIncluded]]
+  <p><b>[[factor]]: </b>[[description]]</p>
+  [[/factorsIncluded]]
+</script>
+
+<script>
+  $(document).ready(function () {
+    Mustache.tags = ["[[", "]]"];
+    var yValuesFactors = Array(7).fill(0); 
+    const factorsList = ["Unemployment Rate", "Poverty Rate", "CPI", "Inflation Rate", "GDP", "Education Rate", "Population Rate"];
+    
+    $.ajax({
+      url: "/retrieve/factors",
+      method: "GET",
+      dataType: "json",
+      success: function (data) {
+        const factors = data.factors;
+        const contributions = data.contributions;
+
+        // Loop through each factor and find its index in factorList
+        factors.forEach((factor, index) => {
+          yValuesFactors[factorsList.indexOf(factor)] = contributions[index]
+        });
+        renderPieGraph(yValuesFactors);
+        renderPieDescription(yValuesFactors);
+      },
+      error: function (error) {
+        console.error("Error fetching factors:", error);
+      },
+    });
+  });
+
+  // Renders the pie graph for the passed on factors
+  function renderPieGraph(yValues) {
+    // Labels for the pie chart for factors being displayed
+    const xValues = ["Unemployment", "Poverty", "CPI", "Inflation", "GDP", "Education", "Population Density"];
+
+    // Assigned colors for each factors
+    const colors = ["#028391", "#F6DCAC", "#FEAE6F", "#00000040", "#01204E", "#424F63", "#80A5B0"];
+
+    // Renders mustache template that will hold the pie graph
+    $.Mustache.add("pieGraph", $("#pieGraphTemplate").html());
+    $("#pie-graph").html($.Mustache.render("pieGraph"));
+    
+    new Chart("factorsChart", {
+      type: "pie",
+      data: {
+        labels: xValues,
+        datasets: [{ backgroundColor: colors, data: yValues }],
+      },
+      options: { legend: { display: true } },
+    });
+  }
+
+  // Updates displayed description based on passed on factors
+  function renderPieDescription(yValues) {
+    var factorsIncluded = [];
+
+    // PIE GRAPH = ["Unemployment", "Poverty", "CPI", "Inflation", "GDP", "Education", "Population Density"]
+    const factorsDescription = [
+      {
+        factor: "Unemployment Rate",
+        description: "Unemployment leads to financial hardship and psychological stress, driving people to commit crimes such as theft, robbery, etc.",
+      },
+      {
+        factor: "Poverty Rate",
+        description: "Poverty and low income levels increase crime rates as individual lacking necessities may resort to theft and other crimes to solve their problems.",
+      },
+      { 
+        factor: "Consumer Price Index", 
+        description: "Consumer Price Index creates a big impact as the summation of the daily necessities of the consumers increase which causes some individuals to commit crimes such as theft." 
+      },
+      { 
+        factor: "Inflation Rate", 
+        description: "High Inflation can affect consumers as the prices increase and they are not able to afford their necessities which results in criminal theft activities " 
+      },
+      { 
+        factor: "Gross Domestic Product", 
+        description: "GDP can influence the changes in the economy. It can lead to reduced economic activity, lower income, and less consumer spending power. These factors can cause people to commit crimes such as theft, robbery, etc." 
+      },
+      { 
+        factor: "Education Rate", 
+        description: "Lack of education can cause people to find it hard to get a job and they consider criminal activities such as theft to sustain their daily needs," 
+      },
+      {
+        factor: "Population Rate",
+        description: "Higher population density and urbanization provide more opportunities for criminal activities as perpetrators can easily blend in or escape",
+      },
+    ];
+
+    // Loops through the array to check included factors
+    for (let i = 0; i < yValues.length; i++) {
+      if (yValues[i] > 0) {
+        factorsIncluded.push(factorsDescription[i]);
+      }
+    }
+
+    // Prepares data and renders Mustache Template
+    var factorsFields = { factorsIncluded };
+    $.Mustache.add("factorsDescription", $("#factorsDescriptionTemplate").html());
+    $("#factors-description").html($.Mustache.render("factorsDescription", factorsFields));
+  }
+
+</script>

@@ -1,0 +1,103 @@
+<!--
+  Table: INPUT DATA - Factors with Theft (2015-2023)
+  Programmers: Alyssa Nicole B. Ramos
+  Date Written: October 18, 2024
+  Date Revised: October 18, 2024
+
+  Description: 
+  This section presents a table containing various factors related to theft incidents from 2015 to 2023. 
+  The data includes information such as population rate, education rate, poverty rate, and other economic indicators 
+  that might have an influence on theft rates over the years.
+-->
+
+<section id="input_theft_factors" class="theft_factors bg-white">
+  <h2 class="section-title text-md font-extrabold text-blue">
+    INPUT DATA: Factors with Theft (2015-2023)
+  </h2>
+  <p class="section-description text-blue-500">
+    Here are the factors related to theft incidents over the years.
+  </p>
+  <table class="min-w-full mt-4 border border-gray-300">
+    <thead>
+      <tr class="table_row">
+        <th>ID</th>
+        <th>Week Start</th>
+        <th>Week End</th>
+        <th>Week</th>
+        <th>Month</th>
+        <th>Year</th>
+        <th>Theft</th>
+        <th>Population Rate</th>
+        <th>Education Rate</th>
+        <th>Poverty Rate</th>
+        <th>Inflation Rate</th>
+        <th>Unemployment Rate</th>
+        <th>GDP</th>
+        <th>CPI</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in data %}
+      <tr>
+        <td>{{ row['id'] }}</td>
+        <td>{{ row['week_start'] }}</td>
+        <td>{{ row['week_end'] }}</td>
+        <td>{{ row['week'] }}</td>
+        <td>{{ row['month'] }}</td>
+        <td>{{ row['year'] }}</td>
+        <td>{{ row['theft'] }}</td>
+        <td>{{ row['population_rate'] }}</td>
+        <td>{{ row['education_rate'] }}</td>
+        <td>{{ row['poverty_rate'] }}</td>
+        <td>{{ row['inflation_rate'] }}</td>
+        <td>{{ row['unemployment_rate'] }}</td>
+        <td>{{ row['gdp'] }}</td>
+        <td>{{ row['cpi'] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<style>
+  /* Section Styles */
+  .theft_factors {
+    padding: 20px;
+  }
+
+  .section-title {
+    margin: 0 0 20px;
+  }
+
+  .section-description {
+    margin: 0 0 20px;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  /* Table Styles */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th,
+  td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f0f0f0;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+</style>

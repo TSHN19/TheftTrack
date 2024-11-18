@@ -1,0 +1,72 @@
+<!--
+===========================================================================================================
+File: Base HTML Template for TheftTrackCHCG Application
+Programmers: Angelica D. Ambrocio
+Date Written: September 20, 2024
+Date Revised: September 20, 2024
+
+Purpose: 
+    This HTML file serves as the base template for the TheftTrackCHCG web application. It provides the fundamental 
+    structure, including a header, main content area, and footer, ensuring a consistent layout across the application.
+
+    The template includes:
+    - Linking to external CSS stylesheets and boxicons for consistent styling.
+    - Usage of Jinja template blocks to enable dynamic content rendering.
+    - JavaScript for smooth scrolling to specific sections when requested by the user.
+
+Where this file fits in the application:
+    This file is part of the front-end UI of the TheftTrackCHCG application. It is used as a base for rendering 
+    consistent web pages and handles page styling, navigation, and section highlighting.
+
+===========================================================================================================
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
+    />
+    <title>{% block title %}TheftTrackCHCG{% endblock %}</title>
+  </head>
+  <body>
+    {% include 'header.html' %}
+    <main class="main-content">{% block content %} {% endblock %}</main>
+    {% include 'footer.html' %}
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .main-content {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+      }
+    </style>
+    
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const section = "{{ section | default('') }}";
+        
+        // Identifies the target section and scrolls to it
+        if (section) {
+          const target = document.getElementById(section);
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
