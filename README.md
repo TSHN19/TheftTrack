@@ -22,7 +22,7 @@ The project is organized as follows:
       - **processor.py**: Manages data processing tasks.
       - **queries.py**: Contains reusable database query functions.
       - **retrieval.py**: Manages data retrieval tasks for the application.
-    - **tool/**: Implements model functions and processing logic.
+    - **ncfs_tool/**: Implements model functions and processing logic.
       - **bestmodel.py**: Handles training, evaluation, data preprocessing, and forecast generation for the best model.
       - **functions.py**: Common functions used on feature selection and training.
       - **functions_factors.py**: Contains functions used for feature selection process.
