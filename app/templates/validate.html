@@ -48,8 +48,7 @@ Control:
     <p id="validate-desc"> Use this tool to forecast potential theft trends in a different location. Simply enter the location name and upload the necessary data in CSV format. The tool will analyze and provide insights for the selected area.</p>
     <br>
     <form id="csvForm">
-      <div id="inner-table">
-        <div style="display: flex; gap: 10vw">
+      <div id="inner-table" style="display: flex; gap: 10vw">
           <div class="input-container">
             <h4 class="text-desc">Enter City or Neighborhood:</h4>
             <input type="text" id="location" placeholder="Enter location here" required/>
@@ -60,7 +59,6 @@ Control:
             <input type="file" id="crime-data" accept=".csv" style="display: none;"/>
             <h4 id="file-name" class="text-desc" style="font-weight: normal; margin-left: -10px;">No File Chosen</h4>
           </div>
-        </div>
       </div>
       <div id="instructions">
           <p>Instructions:</p>
@@ -69,7 +67,7 @@ Control:
           <p>3. <span class="highlight font-bold text-yellow">Click Upload:</span> Once you’ve entered the location and uploaded the file, click the 'Upload' button to start analyzing the data.</p>
           <p>4. <span class="highlight font-bold text-yellow">Wait for Results:</span> After clicking 'Upload', wait a few moments while your data is being processed. The results will display below once ready.</p>
       </div>
-      <button id="upload" type="button" onclick="uploadData()">Upload</button>
+      <div><button id="upload" type="button" onclick="uploadData()">Upload</button></div>
     </form>
     <br>
 
@@ -130,13 +128,14 @@ Control:
   }
 
   #inner-table {
-    margin-left: 250px;
-    margin-right: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: justify;
   }
 
   #upload {
-    margin-left: 50%;
-    margin-right: 50%;
+   margin: auto;
     margin-top: 20px;
     color: #1D3557;
     background-color: #F7FFF4;
@@ -144,15 +143,17 @@ Control:
   .input-container {
     display: flex;
     align-items: center;
-    gap: 1.5vw;
+    gap: 1vw;
   }
 
   #instructions {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: justify;
+    text-align: justify;
     margin-top: 20px;
-    margin-left: 250px;
-    margin-right: 250px;
+    padding: 0 250px;
   }
 
   #instructions p {
@@ -236,7 +237,7 @@ Control:
 
   #location {
     display: block;
-    background-color: #01204e;
+    background-color: #1D3557;
     color: #F7FFF4;
     font-weight: bold;
     font-family: "Inter", sans-serif;
@@ -245,6 +246,7 @@ Control:
     padding: 10px 15px;
     font-size: 16px;
     width: 12vw;
+  
   }
 
   #start-over, #upload {
@@ -273,7 +275,7 @@ Control:
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;display: inline-block;
-    vertical-align: middle;
+    vertical-align: center;
     white-space: nowrap;
   }
 
@@ -296,6 +298,7 @@ Control:
     border-radius: 50%;
     border-color: #457B9D#F2BB05;
     margin-top: 20px;
+    vertical-align: middle;
     animation: l16 1s infinite linear;
   }
 
@@ -329,27 +332,31 @@ Control:
   <h2 style= "color: #1D3557;">NCFS with [[factors]] Factors</h2>
   <canvas id="[[graphID]]"></canvas>
   <p class="tool-description">
-    <div style="text-align: justify; color: #01204e; font-weight: bold; margin: 0 10px;">
-      The NCFS tool considers [[factors]] socioeconomic factor/s. The graph indicates that the [[description]], with an average difference of <span style="text-decoration: underline">[[difference]]</span>
+    <div style="text-align: justify;">
+      <div style="text-align: justify; color: #01204e; font-weight: bold; margin: 0 10px;">
+      Using <span style="color: #D74E09;">[[selectedFactors]]</span>, the NCFS tool forecasts theft incidents to be <span style="text-decoration: underline; color: #D74E09;">[[actual]]</span> lower than actual values.
+      </div>
+      <div style= "margin: 0 10px;">
+      <span style="background-color: #F7FFF4; margin-bottom: 20px; margin-top:20px; margin: 0 10px;">
+        <br /><b style="color: #1D3557">Actual Theft Incidents:</b> <span style="color: #D74E09;  font-weight: bold;">[[actual]]</span>
+        <br /><b style="color: #1D3557">Forecasted Theft Incidents:</b> <span style="color: #D74E09;  font-weight: bold;">[[forecasted]]</span>
+        <br>
+        <br /><b style="color: #1D3557">MAD:</b> <span style="color: #D74E09;  font-weight: bold;">[[mad]]</span>
+        <br /><b style="color: #1D3557">MAE:</b> <span style="color: #D74E09;  font-weight: bold;">[[mae]]</span>
+        <br /><b style="color: #1D3557">RMSE:</b> <span style="color: #D74E09;  font-weight: bold;">[[rmse]]</span>
+        <br /><b style="color: #1D3557">MAPE:</b> <span style="color: #D74E09;  font-weight: bold;">[[mape]]%</span>
+        <br>
+      </span>
+    </div>
     </div>
     <!-- Actual and forecasted values -->
-    <span style="background-color: #F7FFF4; text-align: center; margin-bottom: 20px;">
-        <br /><b style="color: #01204e">Actual Theft Incidents:</b> <span style="color: #f18634;  font-weight: bold;">[[actual]]</span>
-        <br /><b style="color: #01204e">Forecasted Theft Incidents:</b> <span style="color: #f18634;  font-weight: bold;">[[forecasted]]</span>
-        <br>
-        <br /><b style="color: #01204e">MAD:</b> <span style="color: #f18634;  font-weight: bold;">[[mad]]</span>
-        <br /><b style="color: #01204e">MAE:</b> <span style="color: #f18634;  font-weight: bold;">[[mae]]</span>
-        <br /><b style="color: #01204e">RMSE:</b> <span style="color: #f18634;  font-weight: bold;">[[rmse]]</span>
-        <br /><b style="color: #01204e">MAPE:</b> <span style="color: #f18634;  font-weight: bold;">[[mape]]%</span>
-        <br>
-        <br /><b style="color: #01204e">Selected Factors:</b> <span style="color: #f18634;  font-weight: bold;">[[selectedFactors]]</span>
-    </span>
+
 </p>
 </script>
 
 <!-- Tool Description -->
 <script id="inptToolDescriptionTemplate" type="text/template">
-  <div id="inpt-description" style = "color: #F7FFF4;">
+  <div id="inpt-description" style = "color: #F7FFF4; text-align: justify;">
     <p>The <b style="color: #F8D563;">[[bestModel]] Model</b> is the best option for forecasting, showing the smallest errors with a Mean Absolute Error (MAE) of [[bestMAE]], a Mean Absolute Percentage Error (MAPE) of [[bestMAPE]]%, and a Root Mean Square Error (RMSE) of [[bestRMSE]].</p>
     <p>On the other hand, the <b style="color: #F8D563;">[[leastModel]] Model</b> has the largest errors, with a MAE of [[leastMAE]] and an RMSE of [[leastRMSE]], making it the least accurate. The <b style="color: #F8D563;">[[unselected1]]</b> and <b>[[unselected2]] Models</b> perform reasonably well but don’t quite match the accuracy of [[bestModel]].</p>
     <p><b style="color: #F8D563;">Overall, [[bestModel]] is the most reliable choice for selecting factors for theft predictions.</b></p>
@@ -388,7 +395,7 @@ Control:
           ncfs = data.models;
           forecast_result = data.forecast_result;
 
-          $("#output-header").html(`Theft Forecasting in <span style="color: #F2BB05;">${location}</span>`)
+          $("#output-header").html(`<h1 class="text-xs font-bold text-white" style="font-style: Montserrat;">Theft Forecasting in <span style="color: #F2BB05;">${location}</span></h1>`)
           $("#output").show();
           $("#input").hide();
 
