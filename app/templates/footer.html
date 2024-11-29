@@ -21,58 +21,88 @@ Where this file fits in the application:
 ===========================================================================================================
 -->
 
-<footer id="about" class="bg-blue">
-  <div class="app-details" style="width: 40%;">
-    <h2 class="text-orange-100 font-bold">ABOUT THE APP</h2>
+<footer id="about">
+  <div class="app-details" style="width: 40%">
+    <h2 class="font-bold">About the App</h2>
 
-    <p class="desc text-orange-100 font-regular">
+    <p class="desc font-bold">
       This app uses advanced machine learning models to predict theft crime in
       Chicago.
     </p>
     <br />
 
-    <p class="desc text-orange-100 font-regular">
-      <strong>Neighborhood Component Feature Selection (NCFS)</strong><br />
+    <p class="desc text-orange-100 font-bold">
+      <span style="color: #d74e09"
+        ><strong>Neighborhood Component Feature Selection (NCFS)</strong> </span
+      ><br />
       NCFS is a method that selects the most important factors affecting crime,
       like population and poverty rates. It filters out less useful information,
       helping the model focus on what matters most for accurate predictions.
     </p>
     <br />
 
-    <p class="desc text-orange-100 font-regular">
-      <strong>Gradient Boosting Decision Tree (GBDT)</strong><br />
+    <p class="desc text-orange-100 font-bold">
+      <span style="color: #d74e09"
+        ><strong>Gradient Boosting Decision Tree (GBDT)</strong></span
+      ><br />
       GBDT takes the selected factors from NCFS and builds a series of decision
       trees to predict theft crime. This application improves accuracy by adding
       methods to handle complex data and make better forecasts.
     </p>
   </div>
 
-  <div class="about" style="width: 36%;">
-    <h2 class="text-orange-100 font-bold">ABOUT US</h2>
-    <p class="desc text-orange-100 font-regular">
-      TheftTrackCHCG is a crime forecasting application focused on providing
-      clear and concise predictions and user-friendly information about future
-      theft crimes in Chicago. According to the Chicago Data Portal
-      records, theft is one of the leading crime type in Chicago. This application aims
-      to help citizens and visitors by offering the latest and future
-      information on theft crimes, spreading awareness, and helping allocate
-      resources efficiently within the area. Predictions are generated using
-      various factors, including Population Density, Poverty Rate, Education
-      Rate, Inflation Rate, Unemployment Rate, Consumer Price Index, and Gross
-      Domestic Product, which influence the forecast.
+  <div class="about" style="width: 36%">
+    <h2 class="font-bold">About Us</h2>
+    <p class="desc text-orange-100 font-bold">
+      <span style="color: #d74e09"><strong> Theft Track</strong></span> is a
+      crime forecasting application focused on providing clear and concise
+      predictions and user-friendly information about future theft crimes in
+      Chicago. According to the Chicago Data Portal records, theft is one of the
+      leading crime type in Chicago. This application aims to help citizens and
+      visitors by offering the latest and future information on theft crimes,
+      spreading awareness, and helping allocate resources efficiently within the
+      area. <br /><br /><span style="color: #d74e09"
+        ><strong>Predictions are generated using various factors,</strong></span
+      >
+      including Population Density, Poverty Rate, Education Rate, Inflation
+      Rate, Unemployment Rate, Consumer Price Index, and Gross Domestic Product,
+      which influence the forecast.
     </p>
   </div>
 
-  <div class="contact-us" style="width: 24%;">
-    <h2 class="text-orange-100 font-bold">CONTACT US</h2>
+  <div class="contact-us" style="width: 24%">
+    <h2 class="font-bold">Contact Us</h2>
     <div class="row">
       <div>
-        <p><strong>Angelica D. Ambrocio</strong><br>E-MAIL: angelambrocio7112@gmail.com</p>
-        <p><strong>Tashiana Mae C. Bandong</strong><br>E-MAIL: tashianamae5193@gmail.com</p>
+        <p>
+          <span style="color: #d74e09"
+            ><strong>Angelica D. Ambrocio</strong></span
+          ><br />
+          <i class="bx bxs-envelope"></i
+          ><strong>angelambrocio7112@gmail.com</strong>
+        </p>
+        <p>
+          <span style="color: #d74e09"
+            ><strong>Tashiana Mae C. Bandong</strong></span
+          ><br />
+          <i class="bx bxs-envelope"></i
+          ><strong>tashianamae5193@gmail.com</strong>
+        </p>
       </div>
       <div>
-        <p><strong>Alyssa Nicole B. Ramos</strong><br>E-MAIL: balilanicole@gmail.com</p>
-        <p><strong>Samantha Neil Q. Rico</strong><br>E-MAIL: samantharico777@gmail.com</p>
+        <p>
+          <span style="color: #d74e09"
+            ><strong>Alyssa Nicole B. Ramos</strong></span
+          ><br />
+          <i class="bx bxs-envelope"></i><strong>balilanicole@gmail.com</strong>
+        </p>
+        <p>
+          <span style="color: #d74e09"
+            ><strong>Samantha Neil Q. Rico</strong></span
+          ><br />
+          <i class="bx bxs-envelope"></i
+          ><strong>samantharico777@gmail.com</strong>
+        </p>
       </div>
     </div>
   </div>
@@ -80,6 +110,7 @@ Where this file fits in the application:
 
 <style>
   footer {
+    background-color: #f1faee;
     display: flex;
     justify-content: space-evenly;
     box-sizing: border-box;
@@ -89,22 +120,29 @@ Where this file fits in the application:
   }
 
   h2 {
+    color: #1d3557;
     font-size: 1.5vw;
     margin-bottom: 25px;
   }
 
   .desc {
+    color: #1d3557;
     text-align: justify;
     font-size: 0.9vw;
     line-height: 1.5;
   }
 
   .contact-us p {
-    color: #fbe8c6;
+    color: #1d3557;
     text-align: justify;
     font-size: 0.9vw;
     margin: 0px 0px 15px 20px;
     line-height: 1.5;
   }
-  
+
+  .contact-us i.bx {
+    font-size: 16px; /* Adjust icon size to match text */
+    margin-right: 8px; /* Add spacing between icon and email */
+    vertical-align: middle; /* Ensure icon aligns with text */
+  }
 </style>

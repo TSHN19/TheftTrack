@@ -24,16 +24,23 @@ Data Structures, Algorithms, and Control:
 
 <section id="landing" class="landing flex items-center justify-center">
   <div class="desktop content flex items-center justify-center">
-    <img src="/static/images/Logo.png" alt="Logo" class="logo-landing" />
+    <img src="/static/images/Logo3.jpg" alt="Logo" class="logo-landing" />
     <div>
-      <h1 class="TTM text-blue font-extrabold">TheftTrackCHCG</h1>
-      <h2 class="HW text-orange-300 font-extrabold">Hello, welcome!</h2>
-      <h3 class="TTN text-green font-bold">Track Theft Now.</h3>
+      <h1 class="TTM text-blue font-extrabold">
+        Stay <span style="color: #d74e09"> One Step Ahead</span> of Theft.
+      </h1>
+
+      <h3 class="TTN text-green font-bold">
+        Discover the patterns behind theft incidents with data-driven insights.
+        TheftTrackCHCG enables you to monitor key socioeconomic factors, predict
+        future trends, and work with your community to reduce theft and enhance
+        safety across your area.
+      </h3>
       <button
         class="get-started-btn text-black text-xxs font-regular"
         onclick="scrollToForecast()"
       >
-        GET STARTED
+        Get Theft Insights
       </button>
     </div>
   </div>
@@ -41,6 +48,7 @@ Data Structures, Algorithms, and Control:
 
 <style>
   .landing {
+    background-color: #f1faee;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,50 +57,55 @@ Data Structures, Algorithms, and Control:
 
   .logo-landing {
     height: 60vh;
-    width: auto;
-    margin: 2vw 3vw 2vw 0;
+    width:800px;
+    margin: 2vw 3vw 2vw 5vw;
   }
 
   .TTM {
     margin: 0;
-    font-size: 6vh;
-  }
-
-  .HW {
-    margin: 0;
-    font-size: 10vh;
+    font-size: 44px;
+    margin-bottom: 40px;
   }
 
   .TTN {
-    margin-top: 3vh;
-    font-size: 4vh;
+    font-size: 18px;
+    font-weight: 600px;
+    max-width: 80%;
+    word-break: break-word;
+    line-height: 1.5; /* Adjust line height as needed */
+    text-align: justify;
+    color: #1d3557;
+    margin-bottom: 40px;
   }
 
   .get-started-btn {
-    width: 50%;
-    font-size: 1.5vw;
-    background-color: #f6dcac;
-    border-radius: 20px;
+    color: white;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: bold;
+    width: 250px;
+    height: 50px;
+    background-color: #457b9d;
+    border-radius: 5px;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     margin-top: 1vw;
   }
 
   .get-started-btn:hover {
-    background-color: #f5c77e;
+    background-color: #5487a7;
   }
-
 </style>
 
 <script>
   // Scrolls viewport to the forecast section
   function scrollToForecast() {
     const targetElement = document.getElementById("forecast");
-    window.scrollTo({ 
+    window.scrollTo({
       top: targetElement.offsetTop - 100,
-      behavior: "smooth" 
+      behavior: "smooth",
     });
   }
 </script>

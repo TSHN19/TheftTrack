@@ -53,6 +53,18 @@ body {
   color: #000;
 }
 
+.text-white {
+  color: #F1FAEE;
+}
+
+.text-orange {
+  color: #F2BB05;
+}
+
+.text-yellow {
+  color: #FFECAC;
+}
+
 /* Font Sizes */
 .text-xxs {
   font-size: 25px;
@@ -107,8 +119,8 @@ body {
   background-color: #01204e;
 }
 
-.bg-orange-100 {
-  background-color: #f6dcac;
+.bg-blue-100 {
+  background-color: #457B9D;
 }
 
 .bg-green {
