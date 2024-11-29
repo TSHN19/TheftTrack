@@ -46,9 +46,9 @@ Control:
 
 <section id="forecast" class="forecast bg-blue-100">
   <div class="description-body font-semibold">
-    <h2 id="forecast-header" class="text-md font-extrabold text-white">
+    <h2 id="forecast-header" class="text-xs font-bold text-white">
       Get real-time insights into weekly theft trends in
-      <span class="highlight text-md font-extrabold text-orange">Chicago</span>
+      <span class="highlight text-xs font-bold text-orange">Chicago</span>
       to stay ahead of potential risks.
     </h2>
 
@@ -132,8 +132,9 @@ Control:
 
   .forecast h2 {
     text-align: center;
-    margin-left: 200px;
-    margin-right: 200px;
+    margin-left: 350px;
+    margin-right: 350px;
+
   }
 
   .text-desc {
@@ -141,6 +142,7 @@ Control:
     display: inline-block;
     vertical-align: middle;
     white-space: nowrap;
+    font-size: 15px;
   }
 
   #best-tool {
@@ -180,7 +182,7 @@ Control:
   .options {
     display: flex;
     justify-content: center;
-    gap: 300px;
+    gap: 400px;
   }
 
   /* Graph Description */
@@ -201,9 +203,10 @@ Control:
   }
 
   #graph-description h1 {
-    font-size: 35px;
+    font-size: 25px;
     text-align: center;
     margin-bottom: 20px;
+    text-transform: uppercase;
   }
 
   .periodical-description {
@@ -243,9 +246,10 @@ Control:
   }
 
   input[type="month"] {
+    text-align: center;
     margin-left: 20px;
     padding: 5px;
-
+    font-family: Montserrat;
     font-size: 15px;
     font-weight: bold;
     border: 2px solid transparent;
@@ -258,8 +262,14 @@ Control:
 
   input[type="month"]:focus {
     background-color: #1d3557;
-
     outline: none;
+  }
+
+  input[type="month"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    background-color: transparent;
+    color:#f1faee;
+    opacity: 1;
   }
 
   /* Select Button */
@@ -270,10 +280,14 @@ Control:
     margin-bottom: 20px;
   }
 
+  .select-text {
+    gap: 20px;
+  }
+
   select {
     padding: 5px;
-    margin-left: 20px;
-
+    font-family: Montserrat;
+    text-align: center;
     font-size: 15px;
     font-weight: bold;
     border: 2px solid transparent;
@@ -286,8 +300,9 @@ Control:
 
   select:focus {
     background-color: #1d3557;
-
     outline: none;
+    font-family: Montserrat;
+    text-align: center;
   }
 
   /* More Info Accordion */
@@ -432,15 +447,15 @@ Control:
   <h2 style= "color: #1D3557;">NCFS with [[factors]] Factors</h2>
   <canvas id="[[graphID]]"></canvas>
   <p class="tool-description">
-    <div style=" text-align: justify; color: #1D3557; font-weight: bold; margin: 0 10px;">
-      The NCFS tool considers [[factors]] socioeconomic factor/s. The graph indicates that the [[description]], with an average difference of <span style="text-decoration: underline">[[difference]]</span>
+    <div style=" text-align: justify; color: #1D3557; font-weight: semibold; margin: 0 10px;">
+      Using <span style="text-decoration: underline; color: #D74E09;">[[selectedFactors]]</span>, the NCFS tool forecasts theft incidents to be <span style="text-decoration: underline; color: #D74E09;">[[actual]]</span> lower than actual values.
+      <div style="margin-bottom: 20px; margin-top: 20px;">
+        <span style="text-align: justify; line-height: 2rem;">
+        <br /><b style="color: #1D3557;">Actual Theft Incidents:</b> <span style="font-weight: semibold;  color: #D74E09;">[[actual]]</span>
+        <br /><b style="color: #1D3557;">Forecasted Theft Incidents:</b> <span style="font-weight: semibold; color: #D74E09;">[[forecasted]]</span>
+        </span>
+      </div>
     </div>
-    <!-- Actual and forecasted values -->
-    <span style="text-align: center; margin-bottom: 20px;">
-        <br /><b style="color: #1D3557">Actual Theft Incidents:</b> <span style="color: #f18634;  font-weight: bold;">[[actual]]</span>
-        <br /><b style="color: #1D3557">Forecasted Theft Incidents:</b> <span style="color: #f18634;  font-weight: bold;">[[forecasted]]</span>
-        <br><br /><b style="color: #1D3557">Selected Factors:</b> <span style="color: #f18634;  font-weight: bold;">[[selectedFactors]]</span>
-    </span>
   </p>
 </script>
 
