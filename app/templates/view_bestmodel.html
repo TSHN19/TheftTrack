@@ -23,14 +23,14 @@
       </tr>
     </thead>
     <tbody>
-      {% if rows %} {% for row in rows %}
+      {% for row in data %}
       <tr>
         <td>{{ row['id'] }}</td>
         <td>{{ row['week_start'] }}</td>
         <td>{{ row['week_end'] }}</td>
         <td>{{ row['forecasted_value'] }}</td>
       </tr>
-      {% endfor %} {% else %} {% endif %}
+      {% endfor %}
     </tbody>
   </table>
 </section>

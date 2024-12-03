@@ -439,7 +439,7 @@ Control:
     <p><b>[[period_label]]:</b> [[description]] <i>[[range]]</i></p>
     [[/graphDescription]]
   </div>
-  <p>Overall, the span of [[range]] [[tense]] of <b style="color: #F8D563;"> [[total_value]] theft incidents </b> across the [[period_count]] [[period]]s, resulting in a <b style="color: #F8D563;"> [[period]]ly average theft rate of [[average]] incidents.</b></p>
+  <p>Overall, the span of [[range]] [[tense]] of <b style="color: #F8D563;"> [[total_value]] theft incidents </b> over [[period_count]] [[period]]s, resulting in a <b style="color: #F8D563;"> [[period]]ly average theft rate of [[average]] incidents.</b></p>
 </script>
 
 <!-- NCFS 1 to 4 Tool Comparison Template -->
@@ -447,8 +447,8 @@ Control:
   <h2 style= "color: #1D3557;">NCFS with [[factors]] Factors</h2>
   <canvas id="[[graphID]]"></canvas>
   <p class="tool-description">
-    <div style=" text-align: justify; color: #1D3557; font-weight: semibold; margin: 0 10px;">
-      Using <span style="text-decoration: underline; color: #D74E09;">[[selectedFactors]]</span>, the NCFS tool forecasts theft incidents to be <span style="text-decoration: underline; color: #D74E09;">[[actual]]</span> lower than actual values.
+    <div style="text-align: justify; color: #1D3557; font-weight: semibold; margin: 0 10px;">
+      Using <span style="text-decoration: underline; color: #D74E09;">[[selectedFactors]]</span>, the NCFS tool forecasts theft incidents to be<span style="text-decoration: underline; color: #D74E09;">[[difference]]</span> [[description]].
       <div style="margin-bottom: 20px; margin-top: 20px;">
         <span style="text-align: justify; line-height: 2rem;">
         <br /><b style="color: #1D3557;">Actual Theft Incidents:</b> <span style="font-weight: semibold;  color: #D74E09;">[[actual]]</span>
@@ -489,6 +489,8 @@ Control:
 </script>
 
 <script>
+  const months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+  
   $(document).ready(function () {
     Mustache.tags = ["[[", "]]"];
     periodSelection("Week", "2024-10");
@@ -585,20 +587,7 @@ Control:
     const week_ends = data.week_ends;
     const selectedDate = $("#date-input").val();
     const date = selectedDate.split("-");
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
+
     const range = months[date[1] - 1] + " " + date[0];
     const week_ranges = [];
 
@@ -653,20 +642,6 @@ Control:
 
   // Function to forecast/display theft values on a monthly basis
   function monthlyForecast(data, container, graphID, descContainer, location) {
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
     const values = data.theft_values;
     const week_ends = data.week_ends;
     const week_count = data.week;
@@ -940,62 +915,43 @@ Control:
     // Starting description for each period
     if (index == 0) {
       if (period == "Week") {
-        description = ` The theft rate for ${period} ${
-          index + 1
-        } of ${range} started with ${Math.round(value)} theft incidents.`;
+        description = ` The theft rate for ${period} ${index + 1} of ${range} started with 
+          ${Math.round(value)} theft incidents.`;
       } else {
-        description = ` The theft rate for ${
-          rangeList[index]
-        } started with ${Math.round(value)} theft incidents.`;
+        description = ` The theft rate for ${rangeList[index]} started with 
+          ${Math.round(value)} theft incidents.`;
       }
     }
     // If value increased from previous
     else if (list[index] > list[index - 1]) {
       // If value increased from the last 2 previous periods
       if (list[index - 1] > list[index - 2]) {
-        description += ` The theft rate continued to climb in ${currentPeriod} to ${Math.round(
-          value
-        )}, up by ${(
-          ((value - list[index - 1]) / list[index - 1]) *
-          100
-        ).toFixed(2)}% incidents from ${lastPeriod}.`;
+        description += ` The theft rate continued to climb in ${currentPeriod} to ${Math.round(value)}, up by 
+          ${(((value - list[index - 1]) / list[index - 1]) * 100).toFixed(2)}% incidents from ${lastPeriod}.`;
       }
       // If value recently increased
       else {
-        description += ` The theft rate increased to ${Math.round(
-          value
-        )}, reflecting a rise of ${(
-          ((value - list[index - 1]) / list[index - 1]) *
-          100
-        ).toFixed(2)}% incidents from ${lastPeriod}.`;
+        description += ` The theft rate increased to ${Math.round(value)}, reflecting a rise of 
+          ${(((value - list[index - 1]) / list[index - 1]) * 100).toFixed(2)}% incidents from ${lastPeriod}.`;
       }
     }
     // If value decreased from previous
     else if (list[index] < list[index - 1]) {
       // If value decreased from the last 2 previous periods
       if (list[index - 1] < list[index - 2]) {
-        description += ` The theft rate continued to drop in ${currentPeriod}} to ${Math.round(
-          value
-        )}, down by ${(
-          ((list[index - 1] - value) / list[index - 1]) *
-          100
-        ).toFixed(2)}% incidents from ${lastPeriod}.`;
+        description += ` The theft rate continued to drop in ${currentPeriod} to ${Math.round(value)}, down by 
+          ${(((list[index - 1] - value) / list[index - 1]) * 100).toFixed(2)}% incidents from ${lastPeriod}.`;
       }
       // If value recently decreased
       else {
-        description += ` The theft rate decreased to ${Math.round(
-          value
-        )}, reflecting a drop of ${(
-          ((list[index - 1] - value) / list[index - 1]) *
-          100
-        ).toFixed(2)}% incidents from ${lastPeriod}.`;
+        description += ` The theft rate decreased to ${Math.round(value)}, reflecting a drop of 
+          ${(((list[index - 1] - value) / list[index - 1]) * 100).toFixed(2)}% incidents from ${lastPeriod}.`;
       }
     }
     // If value is the same as previous
     else if (list[index] == list[index - 1]) {
-      description += ` The theft rate continued unchanged in ${currentPeriod} at ${Math.round(
-        value
-      )} incidents, reflecting no change from ${lastPeriod}`;
+      description += ` The theft rate continued unchanged in ${currentPeriod} at ${Math.round(value)} 
+        incidents, reflecting no change from ${lastPeriod}`;
     }
 
     // If the value is highest in the graph
@@ -1114,8 +1070,8 @@ Control:
 
   // Retrieves the actual and forecasted values of each NCFS tool
   function renderToolComparison(ncfs, data, graphID) {
-    let [actual, forecasted, selectedFactors] = data;
-    let description = "";
+    var [actual, forecasted, selectedFactors] = data;
+    var description = "";
 
     selectedFactors = selectedFactors.split(", ");
 
@@ -1135,18 +1091,19 @@ Control:
     );
 
     // Join the readable names into a string
-    selectedFactors = readableFactors.join(", ");
+    if (readableFactors.length > 1) {
+      selectedFactors = readableFactors.slice(0, -1).join(", ") + " and " + readableFactors.slice(-1);
+    } else {
+      selectedFactors = readableFactors[0] || "";
+    }
 
     // Determine the relationship between actual and forecasted theft incidents
     if (actual > forecasted) {
-      description =
-        "forecasted theft incidents is lower than the actual incidents";
+      description = "incidents lower than the actual values";
     } else if (forecasted > actual) {
-      description =
-        "actual theft incidents is lower than the forecasted incidents";
+      description = "incidents greater than the actual values";
     } else {
-      description =
-        "forecasted theft incidents equivalent to the actual incidents";
+      description = "equivalent to the actual incidents";
     }
 
     // Create an object to hold values for Mustache rendering

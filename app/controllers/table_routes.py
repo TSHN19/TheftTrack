@@ -62,25 +62,25 @@ def view_bestmodel():
 # Route to view ncfs1
 @table_routes.route('/ncfs1')
 def view_ncfs1():
-    result = select_all_from(db.NCFS_TABLE + 1)
+    result = select_all_from(db.NCFS_TABLE + str(1))
     return render_template('view_ncfs1.html', title = 'NCFS 1', data = result)
 
 # Route to view ncfs2
 @table_routes.route('/ncfs2')
 def view_ncfs2():
-    result = select_all_from(db.NCFS_TABLE + 2)
+    result = select_all_from(db.NCFS_TABLE + str(2))
     return render_template('view_ncfs2.html', title = 'NCFS 2', data = result)
 
 # Route to view ncfs3
 @table_routes.route('/ncfs3')
 def view_ncfs3():
-    result = select_all_from(db.NCFS_TABLE + 3)
+    result = select_all_from(db.NCFS_TABLE + str(3))
     return render_template('view_ncfs3.html', title = 'NCFS 3', data = result)
 
 # Route to view ncfs4
 @table_routes.route('/ncfs4')
 def view_ncfs4():
-    result = select_all_from(db.NCFS_TABLE + 4)
+    result = select_all_from(db.NCFS_TABLE + str(4))
     return render_template('view_ncfs4.html', title = 'NCFS 4', data = result)
 
 # Route to view factors

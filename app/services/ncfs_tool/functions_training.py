@@ -61,7 +61,11 @@ def data_preprocessing(raw_data, selected_factors):
     data = generate_temporal_features(data, selected_factors)   
 
     # Define features and target variable for theft prediction
-    feature_columns = [col for col in data.columns if col not in ['week', 'month', 'year', 'theft']]
+    feature_columns = [
+        col for col in data.columns 
+        if (col not in ['week', 'month', 'year', 'theft']) 
+        and (col in selected_factors or any(col.startswith(column) for column in selected_factors + ['theft_']))
+    ]
    
     # Split the data into training and testing sets (2015-2021 for training, 2022-2023 for testing)
     train_data = data[data['year'].isin(range(2015, 2022))]
