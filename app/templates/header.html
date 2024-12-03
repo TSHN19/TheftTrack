@@ -90,7 +90,7 @@ Purpose:
       event.preventDefault();
       const targetID = this.getAttribute("href");
       const targetElement = document.querySelector(targetID);
-      const vh = window.innerHeight * 0.11;
+      const vh = window.innerHeight * 0.05;
       const offsetPosition = targetElement.offsetTop - vh;
       window.scrollTo({
         top: offsetPosition,

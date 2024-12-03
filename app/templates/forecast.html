@@ -506,7 +506,7 @@ Control:
         button.text("See More Details");
         const targetElement = document.getElementById("forecast");
         window.scrollTo({
-          top: targetElement.offsetTop - 100,
+          top: targetElement.offsetTop - 70,
           behavior: "smooth",
         });
         setTimeout(() => {
@@ -516,7 +516,7 @@ Control:
         containers.css("max-height", containers[0].scrollHeight + "px");
         button.text("Hide");
         const targetElement = document.getElementById("tool-about");
-        const vh = window.innerHeight * 0.1;
+        const vh = window.innerHeight * 0.09;
         window.scrollTo({
           top: targetElement.offsetTop - vh,
           behavior: "smooth",
