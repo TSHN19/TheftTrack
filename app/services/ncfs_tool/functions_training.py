@@ -104,7 +104,15 @@ def generate_temporal_features(data, selected_factors):
             data[f'{col}_lag_{lag}'] = data[col].shift(lag)
 
     # Create lag and differencing features for theft rates to capture trends
-    data['theft_diff'] = data['theft'] - data['theft'].shift(1)  # Differencing feature to capture short-term changes
+    # data['theft_diff'] = data['theft'] - data['theft'].shift(1)
+    
+    data['theft_diff'] = data['theft'].shift(4) - data['theft'].shift(5)  # Differencing feature to capture short-term changes
+    
+    print("AAAA")
+    print(f"theft_diff: {data['theft_diff']}")
+    # print(f"\ntheft column: {data['theft']}")
+    # print(f"\nshifted: {data['theft'].shift(1)}")
+    # print(f"shifted: {data['theft'].shift(5)}")
 
     # Create lag features for theft to capture weekly trends
     for lag in range(1, 5):
@@ -123,6 +131,13 @@ def generate_temporal_features(data, selected_factors):
     for col in selected_factors + ['theft']:
         for window in [4, 8, 12, 24]:  # Different rolling window sizes
             data[f'{col}_rolling_avg_{window}'] = data[col].rolling(window=window).mean()
+    
+    # for col in selected_factors + ['theft']:
+    #     for window in [4, 8, 12, 24]:  # Different rolling window sizes
+    #         if col == 'theft':
+    #             data[f'{col}_rolling_avg_{window}'] = data[col].shift(4).rolling(window=window).mean()
+    #         else:
+    #             data[f'{col}_rolling_avg_{window}'] = data[col].rolling(window=window).mean()
 
     # Drop rows with NaN values resulting from lagging and rolling features
     data.dropna(inplace=True)
