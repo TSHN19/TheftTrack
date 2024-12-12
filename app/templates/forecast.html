@@ -47,8 +47,8 @@ Control:
 <section id="forecast" class="forecast bg-blue-100">
   <div class="description-body font-semibold">
     <h2 id="forecast-header" class="text-xs font-bold text-white">
-      Get real-time insights into weekly theft trends in
-      <span class="highlight text-xs font-bold text-orange">Chicago</span>
+      Get real-time insights into <span id="period-header">weekly</spans> theft trends in 
+      <span id="location-header" class="highlight text-xs font-bold text-orange">Chicago</span>
       to stay ahead of potential risks.
     </h2>
 
@@ -79,11 +79,7 @@ Control:
     <!-- Line Graph Rendering -->
     <div id="graph-container">
       <!-- Previous Button -->
-      <a
-        href="javascript:void(0);"
-        onclick="previousPeriod()"
-        class="arrow-button"
-      >
+      <a href="javascript:void(0);" onclick="previousPeriod()" class="arrow-button">
         <img src="/static/images/arrow-left.png" alt="Previous Month" />
       </a>
       <!-- Line Graph Container -->
@@ -538,7 +534,9 @@ Control:
       const selectedPeriod = $(this).val();
       const selectedDate = $("#date-input").val();
       $("#forecast-header").html(
-        `${selectedPeriod}ly Theft Forecasting in Chicago`
+        `Get real-time insights into ${selectedPeriod.toLowerCase()}ly theft trends in 
+        <span id="highlight-chicago" class="highlight text-xs font-bold text-orange">Chicago</span> 
+        to stay ahead of potential risks.`
       );
       periodSelection(selectedPeriod, selectedDate);
     });

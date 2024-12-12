@@ -78,6 +78,11 @@ def data_preprocessing(raw_data, selected_factors):
     y_train = train_data['theft']
     X_test = test_data[feature_columns]
     y_test = test_data['theft']
+    
+    # pd.set_option('display.max_rows', None)
+    pd.set_option('display.max_columns', None)
+    print("AAAAA")
+    print(test_data)
 
     return X_train, y_train, X_test, y_test, test_data
 
@@ -109,16 +114,6 @@ def generate_temporal_features(data, selected_factors):
     # Create lag features for theft to capture weekly trends
     for lag in [1, 3, 5]:
         data[f'theft_lag_{lag}'] = data['theft'].shift(lag)
-        
-    print("AAAA")
-    print(f"\nLag1: {data['theft_lag_1']}")
-    print(f"\nLag3: {data['theft_lag_3']}")
-    print(f"\nLag5: {data['theft_lag_5']}")
-    # print(f"THEF: {data['theft_diff']}")
-    # print(f"\ntheft column: {data['theft']}")
-    # print(f"\nshifted: {data['theft'].shift(1)}")
-    # print(f"shifted: {data['theft'].shift(5)}")
-
 
     # Create one interaction term for the selected socioeconomic factors
     if len(selected_factors) != 1:
