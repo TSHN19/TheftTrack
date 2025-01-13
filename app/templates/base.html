@@ -27,6 +27,11 @@ Where this file fits in the application:
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/styles.css') }}"
     />
@@ -35,6 +40,7 @@ Where this file fits in the application:
       href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
     />
     <title>{% block title %}TheftTrackCHCG{% endblock %}</title>
+    <link rel="icon" href="static/images/Logo2.png">
   </head>
   <body>
     {% include 'header.html' %}
@@ -48,17 +54,21 @@ Where this file fits in the application:
         box-sizing: border-box;
       }
 
+      body {
+        font-family: "Montserrat", sans-serif; /* Set Montserrat globally */
+      }
+
       .main-content {
         width: 100%;
         height: 100%;
         margin: 0 auto;
       }
     </style>
-    
+
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const section = "{{ section | default('') }}";
-        
+
         // Identifies the target section and scrolls to it
         if (section) {
           const target = document.getElementById(section);

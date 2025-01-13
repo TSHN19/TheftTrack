@@ -61,19 +61,28 @@ def data_preprocessing(raw_data, selected_factors):
     data = generate_temporal_features(data, selected_factors)   
 
     # Define features and target variable for theft prediction
-    feature_columns = [col for col in data.columns if col not in ['week', 'month', 'year', 'theft']]
+    feature_columns = [
+        col for col in data.columns 
+        if (col not in ['week', 'month', 'year', 'theft']) 
+        and (col in selected_factors or any(col.startswith(column) for column in selected_factors + ['theft_']))
+    ]
    
     # Split the data into training and testing sets (2015-2021 for training, 2022-2023 for testing)
     train_data = data[data['year'].isin(range(2015, 2022))]
     train_data = train_data.groupby(['year', 'month', 'week']).agg('mean').reset_index()
-    test_data = data[data['year'] == 2023]
+    test_data = data[data['year'].isin([2023, 2024])]
     test_data = test_data.groupby(['year', 'month', 'week']).agg('mean').reset_index()
-
+    
     # Define training and testing features and targets
     X_train = train_data[feature_columns]
     y_train = train_data['theft']
     X_test = test_data[feature_columns]
     y_test = test_data['theft']
+    
+    # pd.set_option('display.max_rows', None)
+    pd.set_option('display.max_columns', None)
+    print("AAAAA")
+    print(test_data)
 
     return X_train, y_train, X_test, y_test, test_data
 
@@ -100,10 +109,10 @@ def generate_temporal_features(data, selected_factors):
             data[f'{col}_lag_{lag}'] = data[col].shift(lag)
 
     # Create lag and differencing features for theft rates to capture trends
-    data['theft_diff'] = data['theft'] - data['theft'].shift(1)  # Differencing feature to capture short-term changes
-
+    data['theft_diff'] = data['theft'].shift(4) - data['theft'].shift(5)  # Differencing feature to capture short-term changes
+    
     # Create lag features for theft to capture weekly trends
-    for lag in range(1, 5):
+    for lag in [1, 3, 5]:
         data[f'theft_lag_{lag}'] = data['theft'].shift(lag)
 
     # Create one interaction term for the selected socioeconomic factors
@@ -115,10 +124,12 @@ def generate_temporal_features(data, selected_factors):
         for factor in selected_factors:
             data[interaction_name] *= data[factor]
 
-    # Create rolling averages for socioeconomic factors and theft to capture trends
-    for col in selected_factors + ['theft']:
+    # for col in selected_factors + ['theft']:
         for window in [4, 8, 12, 24]:  # Different rolling window sizes
-            data[f'{col}_rolling_avg_{window}'] = data[col].rolling(window=window).mean()
+            if col == 'theft':
+                data[f'{col}_rolling_avg_{window}'] = data[col].shift(4).rolling(window=window).mean()
+            else:
+                data[f'{col}_rolling_avg_{window}'] = data[col].rolling(window=window).mean()
 
     # Drop rows with NaN values resulting from lagging and rolling features
     data.dropna(inplace=True)

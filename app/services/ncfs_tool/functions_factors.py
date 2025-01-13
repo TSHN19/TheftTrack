@@ -37,6 +37,7 @@
 import pandas as pd
 import numpy as np
 from itertools import combinations
+from sklearn.preprocessing import StandardScaler
 from tabulate import tabulate
 from .functions import month_mapping
 from app.services.constants import ALL_FEATURES, FEATURE_NAMES
@@ -86,6 +87,10 @@ def data_preprocessing(raw_data):
 
         # Collect the names of the remaining features after zero variance removal
         result_features = [feature for i, feature in enumerate(ALL_FEATURES) if i not in zero_variance_indices]
+        
+    # Fit the scaler to the data and transform it
+    scaler = StandardScaler()
+    X_train = scaler.fit_transform(X_train)
 
     return X_train, y_train
 

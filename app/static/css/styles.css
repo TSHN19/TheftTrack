@@ -5,17 +5,17 @@
 
 /* Scrollbar track (background of the scrollbar) */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1e8;
+  background: #F1FAEE;
 }
 
 /* Scrollbar thumb (the draggable part) */
 ::-webkit-scrollbar-thumb {
-  background-color: #01204e;
+  background-color: #1D3557;
 }
 
 /* Hover effect on the thumb */
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #feae6f;
+  background-color: #D74E09;
 }
 
 
@@ -51,6 +51,18 @@ body {
 
 .text-black {
   color: #000;
+}
+
+.text-white {
+  color: #F1FAEE;
+}
+
+.text-orange {
+  color: #F2BB05;
+}
+
+.text-yellow {
+  color: #FFECAC;
 }
 
 /* Font Sizes */
@@ -107,8 +119,8 @@ body {
   background-color: #01204e;
 }
 
-.bg-orange-100 {
-  background-color: #f6dcac;
+.bg-blue-100 {
+  background-color: #457B9D;
 }
 
 .bg-green {
