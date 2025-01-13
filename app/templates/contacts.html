@@ -27,20 +27,29 @@ Where this file fits in the application:
 <section id="contacts" class="contacts-section">
   <h2
     class="text-md font-extrabold"
-    style="margin-bottom: 0; color: #1d3557"
+    style="margin-bottom: 0; color: #1d3557; font-size: 30px;"
   >
     Chicago Police Department & Police Districts
   </h2>
-  <h4 style="color: #d74e09; text-align: center; padding: 20px">
+  <h5
+    style="
+      color: #457b9d;
+      text-align: center;
+      padding: 20px;
+      font-size: 15px;
+      font-weight: bold;
+      line-height: 20px;
+    "
+  >
     Below you will find the contact information for the main Chicago Police
     Department and each of the district offices <br />
     throughout the city. Whether you need assistance, want to report a crime, or
     have questions, these contacts are here to help<br />
     keep Chicago safe.
-  </h4>
+  </h5>
 
   <!-- Page Content -->
-  <div id="contacts" class="content">
+  <div id="contacts" class="content" style="background-color: #f1faee;">
     <div class="pages">
       <!-- Previous Control -->
       <div class="controls">
@@ -48,7 +57,10 @@ Where this file fits in the application:
       </div>
 
       <div>
-        <div class="station font-semibold" style="background-color: #f7fff4">
+        <div
+          class="station font-semibold"
+          style="background-color: #f7fff4; line-height: 30px"
+        >
           <p>
             <i class="bx bxs-map"></i> Public Safety Headquarters Building 3510
             South Michigan Avenue Chicago, IL 60653
@@ -61,18 +73,19 @@ Where this file fits in the application:
         </div>
 
         <!-- Page 1 -->
-        <div class="page active" id="page-1">
-          <h2
+           <h2
             class="font-semibold"
             style="
               font-size: 3.5vh;
               margin: 15px 0;
               font-weight: bold;
-              color: #d74e09;
-            "
+              color: #1d3557;
+             ""
           >
             Chicago Police Department & Police Districts
           </h2>
+        <div class="page active" id="page-1">
+        
           <div class="stations-list font-semibold">
             <div class="station">
               <h3>1st District: Central</h3>
@@ -158,17 +171,7 @@ Where this file fits in the application:
 
         <!-- Page 2 -->
         <div class="page" id="page-2">
-          <h2
-            class="font-semibold"
-            style="
-              font-size: 3.5vh;
-              margin: 15px 0;
-              font-weight: bold;
-              color: #d74e09;
-            "
-          >
-            Chicago Police Department & Police Districts
-          </h2>
+          
           <div class="stations-list font-semibold">
             <div class="station">
               <h3>7th District: Englewood</h3>
@@ -253,17 +256,7 @@ Where this file fits in the application:
 
         <!-- Page 3 -->
         <div class="page" id="page-3">
-          <h2
-            class="font-semibold"
-            style="
-              font-size: 3.5vh;
-              margin: 15px 0;
-              font-weight: bold;
-              color: #d74e09;
-            "
-          >
-            Chicago Police Department & Police Districts
-          </h2>
+          
           <div class="stations-list font-semibold">
             <div class="station">
               <h3>14th District: Harrison</h3>
@@ -348,17 +341,7 @@ Where this file fits in the application:
 
         <!-- Page 4 -->
         <div class="page" id="page-4">
-          <h2
-            class="font-semibold"
-            style="
-              font-size: 3.5vh;
-              margin: 15px 0;
-              font-weight: bold;
-              color: #d74e09;
-            "
-          >
-            Chicago Police Department & Police Districts
-          </h2>
+          
           <div class="stations-list font-semibold">
             <div class="station">
               <h3>20th District: Lincoln</h3>
@@ -419,17 +402,6 @@ Where this file fits in the application:
 
         <!-- Page 5 -->
         <div class="page" id="page-5">
-          <h2
-            class="font-semibold"
-            style="
-              font-size: 3.5vh;
-              margin: 15px 0;
-              font-weight: bold;
-              color: #d74e09;
-            "
-          >
-            Police Department Hotlines
-          </h2>
           <div class="stations-list font-semibold">
             <div class="station">
               <h3>Anti-Gun Enforcement</h3>
@@ -520,10 +492,11 @@ Where this file fits in the application:
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
+    
   }
 
   .station {
-    color: #d74e09;
+    color: #457b9d;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -532,6 +505,7 @@ Where this file fits in the application:
     height: 100%;
     width: 100%;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
   }
 
   .station h3 {
@@ -548,6 +522,8 @@ Where this file fits in the application:
 
   .station p i {
     margin-right: 8px;
+    color: black;
+    font-size: 20px;
   }
 
   /* Controls */
