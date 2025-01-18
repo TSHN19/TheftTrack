@@ -24,7 +24,7 @@ Where this file fits in the application:
 
 
 
-<section id="factors" class="factors bg-white">
+<section id="factors" class="factors" style="background-color: #f1faee;">
   <h2 class="text-md font-extrabold text-blue">Socioeconomic Factors</h2>
   <div id="factors-legend"></div>
   <div id="factors-content">
@@ -33,7 +33,7 @@ Where this file fits in the application:
     
     <!-- Factor Descriptions -->
     <div class="description">
-      <p style="margin-bottom: 20px; font-weight: 600;">
+      <p style="margin-bottom: 30px; font-weight: 600;">
         In forecasting theft-related crime rates, this application considered the
         following socioeconomic factors:
       </p>
@@ -53,7 +53,8 @@ Where this file fits in the application:
     text-align: center;
     font-size: 2rem;
     color: #023047;
-    }
+    margin: 10px 0;
+  }
 
   #factors-content {
     display: flex;
@@ -92,6 +93,7 @@ Where this file fits in the application:
     line-height: 2rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #1D3557;
+    margin: 10px 0;
   }
 
   #factors-description p:nth-child(2) {
@@ -163,14 +165,14 @@ Where this file fits in the application:
     const xValues = ["Unemployment", "Poverty", "CPI", "Inflation", "GDP", "Education", "Population Density"];
 
     // Assigned colors for each factors
-    const colors = ["#A8DADC", "#1D3557", "#D74E09", "#272727", "#FB9F89", "#B07156", "#F2BB05"];
+    const colors = ["#A8DADC", "#1D3557", "#FB9F89", "#272727", "#D74E09", "#B07156", "#F2BB05"];
 
     // Render custom legend
     const customLegendHTML = xValues
       .map((label, index) => {
         return `<span style="display: flex; align-items: center; margin-right: 5px;">
-                  <span style="display: inline-block; width: 30px; height: 10px; background-color: ${colors[index]}; margin-right: 1px;"></span>
-                  <span style="font-size: 14px; color: #457B9D;">${label}</span>
+                  <span style="display: inline-block; width: 50px; height: 15px; background-color: ${colors[index]}; margin-right: 1px;"></span>
+                  <span style="font-size: 14px; color: #457B9D; font-weight: bold;">${label}</span>
                 </span>`;
       })
       .join("");
