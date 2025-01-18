@@ -22,8 +22,11 @@ Where this file fits in the application:
 ===========================================================================================================
 -->
 
+
+
 <section id="factors" class="factors bg-white">
   <h2 class="text-md font-extrabold text-blue">Socioeconomic Factors</h2>
+  <div id="factors-legend"></div>
   <div id="factors-content">
     <!-- Pie Graph Container -->
     <div id="pie-graph"></div>
@@ -54,8 +57,9 @@ Where this file fits in the application:
 
   #factors-content {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start; /* Align items to the top */
+    justify-content: center; /* Center content horizontally */
+    gap: 3vw; /* Space between the chart and the description */
     margin: 25px 0;
   }
 
@@ -91,8 +95,17 @@ Where this file fits in the application:
   }
 
   #factors-description p:nth-child(2) {
-  background-color: #1D3557;
+    background-color: #1D3557;
   } 
+  
+  #factors-legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 40px;
+  }
+
 
 </style>
 
@@ -152,6 +165,17 @@ Where this file fits in the application:
     // Assigned colors for each factors
     const colors = ["#A8DADC", "#1D3557", "#D74E09", "#272727", "#FB9F89", "#B07156", "#F2BB05"];
 
+    // Render custom legend
+    const customLegendHTML = xValues
+      .map((label, index) => {
+        return `<span style="display: flex; align-items: center; margin-right: 5px;">
+                  <span style="display: inline-block; width: 30px; height: 10px; background-color: ${colors[index]}; margin-right: 1px;"></span>
+                  <span style="font-size: 14px; color: #457B9D;">${label}</span>
+                </span>`;
+      })
+      .join("");
+      $ ("#factors-legend").html(customLegendHTML);
+
     // Renders mustache template that will hold the pie graph
     $.Mustache.add("pieGraph", $("#pieGraphTemplate").html());
     $("#pie-graph").html($.Mustache.render("pieGraph"));
@@ -162,7 +186,7 @@ Where this file fits in the application:
         labels: xValues,
         datasets: [{ backgroundColor: colors, data: yValues }],
       },
-      options: { legend: { display: true } },
+      options: { plugins: {legend: { display: false } } },
     });
   }
 
