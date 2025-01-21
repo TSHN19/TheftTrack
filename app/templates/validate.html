@@ -43,7 +43,7 @@ Control:
 <section id="validate" class="">
   <div id="input">
     <h2 id="validate-header" class="text-md font-extrabold text-white">
-      Input Data for Theft Forecasting in <span class="highlight text-md font-extrabold text-orange">Other Locations</span>
+      Input Data for Theft Forecasting in <span class="highlight text-md font-extrabold  text-orange">Other Locations</span>
     </h2>
     <p id="validate-desc"> Use this tool to forecast potential theft trends in a different location. Simply enter the location name and upload the necessary data in CSV format. The tool will analyze and provide insights for the selected area.</p>
     <br>
@@ -61,12 +61,12 @@ Control:
           </div>
       </div>
       <div id="instructions">
-          <p style="font-weight: bold;">Instructions:</p>
+          <p>Instructions:</p>
           <p><span class="highlight font-bold text-yellow">1. Enter Location:</span> Type in the name of the city or neighborhood where you want to analyze theft trends (e.g., 'Chicago', 'Lincoln Park').</p>
           <p><span class="highlight font-bold text-yellow">2. Upload CSV File:</span> Choose a CSV file from your device that includes data such as dates, theft type, and incidents count. Ensure your CSV contains columns for date, location, and theft type.
           <p><span class="highlight font-bold text-yellow">3. Click Upload:</span> Once you’ve entered the location and uploaded the file, click the 'Upload' button to start analyzing the data.</p>
           <p><span class="highlight font-bold text-yellow">4. Wait for Results:</span> After clicking 'Upload', wait a few moments while your data is being processed. The results will display below once ready.</p>
-          <p style="text-align: center; font-weight: bold; margin-right: 220px;">Download this <a style="text-decoration: none; color: #F8D563; font-weight: bold;" href="static/template/template.csv" download><i>template</i></a> to ensure your data is structured correctly. Fill it out and upload it back in either Excel or CSV format.</p>
+          <p style="text-align: center; font-weight: bold;">Download this <a style="text-decoration: none; color: #F8D563; font-weight: bold;" href="static/template/template.csv" download><i>template</i></a> to ensure your data is structured correctly. Fill it out and upload it back in either Excel or CSV format.</p>
       </div>
       <div><button id="upload" type="button" onclick="uploadData()">Upload</button></div>
     </form>
@@ -78,7 +78,7 @@ Control:
   </div>
 
   <div id="output">
-    <h2 id="output-header" class="text-md font-extrabold text-white"></h2>
+    <h2 id="output-header" class="text-md font-semibold text-white"></h2>
     <div id="inpt-forecast">
       <!-- Forecasting Result -->
       <div id="inpt-chart"></div>
@@ -148,9 +148,10 @@ Control:
     margin-right: 250px;
   }
 
-  #validate-header, #output-header, #output-best {
+  #validate-header, #output-header, #output-best, #validate-header span {
     display: flex;
     justify-content: center;
+    font-size: 2rem;
   }
 
   #csvForm {
@@ -308,6 +309,7 @@ Control:
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;display: inline-block;
+    vertical-align: center;
     white-space: nowrap;
   }
 
@@ -366,7 +368,7 @@ Control:
   <p class="tool-description">
     <div style="text-align: justify;">
       <div style="text-align: justify; color: #01204e; font-weight: bold; margin: 0 10px;">
-        Using <span style="text-decoration: underline; color: #D74E09;">[[selectedFactors]]</span>, the NCFS tool forecasts theft incidents to be<span style="text-decoration: underline; color: #D74E09;">[[difference]]</span> [[description]].
+        Using <span style="font-weight:bold; color: #D74E09;">[[selectedFactors]]</span>, the NCFS tool forecasts theft incidents to be<span style="font-weight: bold; color: #D74E09;">[[difference]]</span> [[description]].
       </div>
       <div style= "margin: 0 10px;">
       <span style="background-color: #F7FFF4; margin-bottom: 20px; margin-top:20px; margin: 0 10px;">
@@ -436,7 +438,7 @@ Control:
             ncfs = data.models;
             forecast_result = data.forecast_result;
 
-            $("#output-header").html(`Theft Forecasting in <span class="highlight text-md font-extrabold text-orange"> ${location}</span>`)
+            $("#output-header").html(`Theft Forecasting in <span class="highlight text-head font-extrabold text-orange output-header"> ${location}</span>`)
             $("#output").show();
             $("#input").hide();
 
