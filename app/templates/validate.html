@@ -97,10 +97,41 @@ Control:
     <div id="inpt-evaluation"></div>
     <button id="start-over" type="button" onclick="startOver()">Start Over</button>
   </div>
-    
+
+  <!-- Popup Container -->
+  <div id="errorPopup" class="popup-container">
+    <div class="popup-content">
+      <h2>CSV Upload Error</h2>
+      <p id="errorMessage"></p>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+
 </section>
 
 <style>
+  .popup-container {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    width: 50vw;
+  }
+
   #validate {
     background-color: #457B9D;
     padding: 3vw;
@@ -372,6 +403,15 @@ Control:
     $('#file-name').text(fileName);
   });
 
+  function showErrorPopup(message) {
+    $("#errorMessage").html(message);
+    $("#errorPopup").fadeIn();
+  }
+
+  function closePopup() {
+    $("#errorPopup").fadeOut();
+  }
+
   function uploadData() {
     const fileInput = $("#crime-data")[0];
     const file = fileInput.files[0];
@@ -390,46 +430,53 @@ Control:
         processData: false,
         contentType: false,
         success: function(data) {
-          console.log(data)
-          ncfs = data.models;
-          forecast_result = data.forecast_result;
+          $(".loader").hide();
+          if (data.success) {
+            console.log(data)
+            ncfs = data.models;
+            forecast_result = data.forecast_result;
 
-          $("#output-header").html(`Theft Forecasting in <span class="highlight text-md font-extrabold text-orange"> ${location}</span>`)
-          $("#output").show();
-          $("#input").hide();
+            $("#output-header").html(`Theft Forecasting in <span class="highlight text-md font-extrabold text-orange"> ${location}</span>`)
+            $("#output").show();
+            $("#input").hide();
 
-          const vh = window.innerHeight * 0.11; 
-          const targetElement = document.getElementById("validate");
-          window.scrollTo({ 
-            top: targetElement.offsetTop - vh,
-            behavior: "smooth" 
-          });
+            const vh = window.innerHeight * 0.11; 
+            const targetElement = document.getElementById("validate");
+            window.scrollTo({ 
+              top: targetElement.offsetTop - vh,
+              behavior: "smooth" 
+            });
 
-          // Initialize the forecast object
-          const forecast = {
-            theft_values: [],
-            week_ends: [],
-            week_starts: []
-          };
+            // Initialize the forecast object
+            const forecast = {
+              theft_values: [],
+              week_ends: [],
+              week_starts: []
+            };
 
-          // Populate the forecast object
-          forecast_result.forEach(item => {
-            forecast.theft_values.push(item.forecasted_value);
-            forecast.week_ends.push(item.week_end);
-            forecast.week_starts.push(item.week_start);
-          });
+            // Populate the forecast object
+            forecast_result.forEach(item => {
+              forecast.theft_values.push(item.forecasted_value);
+              forecast.week_ends.push(item.week_end);
+              forecast.week_starts.push(item.week_start);
+            });
 
-          // Render line graph and description
-          weeklyForecast(forecast, "#inpt-chart", "inptForecast", "#inpt-chart-desc", location)
+            // Render line graph and description
+            weeklyForecast(forecast, "#inpt-chart", "inptForecast", "#inpt-chart-desc", location)
 
-          // Render bar graph and description for each NCFS tool
-          inptRenderToolComparison($("#inpt-ncfs1"), ncfs[0], "inpt-ncfs1-graph")
-          inptRenderToolComparison($("#inpt-ncfs2"), ncfs[1], "inpt-ncfs2-graph")
-          inptRenderToolComparison($("#inpt-ncfs3"), ncfs[2], "inpt-ncfs3-graph")
-          inptRenderToolComparison($("#inpt-ncfs4"), ncfs[3], "inpt-ncfs4-graph")        
+            // Render bar graph and description for each NCFS tool
+            inptRenderToolComparison($("#inpt-ncfs1"), ncfs[0], "inpt-ncfs1-graph")
+            inptRenderToolComparison($("#inpt-ncfs2"), ncfs[1], "inpt-ncfs2-graph")
+            inptRenderToolComparison($("#inpt-ncfs3"), ncfs[2], "inpt-ncfs3-graph")
+            inptRenderToolComparison($("#inpt-ncfs4"), ncfs[3], "inpt-ncfs4-graph")        
+            
+            // Render tool evaluation table
+            renderToolEvaluationTable([ncfs[0], ncfs[1], ncfs[2], ncfs[3]], "#inpt-evaluation", "#inptToolDescriptionTemplate", "#output-best")
+          }
           
-          // Render tool evaluation table
-          renderToolEvaluationTable([ncfs[0], ncfs[1], ncfs[2], ncfs[3]], "#inpt-evaluation", "#inptToolDescriptionTemplate", "#output-best")
+          else {
+            showErrorPopup(data.message)
+          }
         },
         error: function(error) {
           console.error("Upload failed:", error);
