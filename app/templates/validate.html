@@ -110,27 +110,48 @@ Control:
 </section>
 
 <style>
-  .popup-container {
-    display: none; /* Hidden by default */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
-    justify-content: center;
-    align-items: center;
+  
+  .popup-content button {
+  background-color: #457B9D; /* Bright red background */
+  color: white; /* White text color */
+  border: none; /* Remove default border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 10px 15px; /* Padding for click area */
+  font-size: 16px; /* Text size */
+  font-weight: bold; /* Bold text */
+  cursor: pointer; /* Pointer cursor on hover */
+  margin-top: 20px; /* Space above the button */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth background and scaling transition */
   }
 
-  .popup-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    width: 50vw;
+  .popup-content button:hover {
+  background-color: #1D3557; /* Darker red on hover */
   }
+
+  .popup-container {
+  display: none; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  }
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  width: 50vw;
+  max-width: 500px;
+  box-sizing: border-box;
+}
 
   #validate {
     background-color: #457B9D;
@@ -309,7 +330,6 @@ Control:
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;display: inline-block;
-    vertical-align: center;
     white-space: nowrap;
   }
 
@@ -399,6 +419,8 @@ Control:
   $(document).ready(function() {
     $("#output, .loader").hide();
   });
+  
+  $("#errorPopup").hide();
 
   $('#crime-data').on('change', function () {
     const fileName = this.files[0]?.name || "No File Chosen";
