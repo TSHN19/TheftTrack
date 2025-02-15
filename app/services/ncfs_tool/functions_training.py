@@ -81,8 +81,6 @@ def data_preprocessing(raw_data, selected_factors):
     
     # pd.set_option('display.max_rows', None)
     pd.set_option('display.max_columns', None)
-    print("AAAAA")
-    print(test_data)
 
     return X_train, y_train, X_test, y_test, test_data
 
