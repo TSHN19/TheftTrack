@@ -1,9 +1,5 @@
 # Project Title: TheftTrack
 
-<p align="center">
-  <img src="app/static/images/TheftTrack.png" alt="TheftTrackLogo">
-</p>
-
 ## Description
 
 TheftTrack is a machine learning-based forecasting tool designed to predict weekly rates of theft in Chicago. By leveraging models such as Neighborhood Component Feature Selection (NCFS) and Gradient Boosting Decision Tree (GBDT), TheftTrack aims to assist authorities and stakeholders in making data-driven decisions to reduce theft incidents. The tool integrates interaction terms derived from k-means clustering for better feature selection and model accuracy.
