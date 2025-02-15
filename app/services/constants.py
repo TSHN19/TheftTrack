@@ -56,11 +56,19 @@ class DatabaseConst:
         "week", "month", "year", "theft", "population_rate", "education_rate", "poverty_rate", 
         "inflation_rate", "unemployment_rate", "gdp", "cpi" 
     ]
+    
+    # Evalution metrics columns
     PERFMETRICS_COLUMNS = [ 
         "model", "MAE", "MAPE", "RMSE", "MAD", "actual_value", "forecasted_value", "selected_factors" 
     ]
+    
+    # NCFS table columns
     NCFS_COLUMNS = [ "id", "date", "actual_value", "forecasted_value" ]
+    
+    # Forecast table columns
     FORECAST_COLUMNS = [ "week_start", "week_end", "forecasted_value" ]
+    
+    # Obtained factors table columns
     FACTOR_COLUMNS = [ "feature", "contribution" ]
 
 # Error Messages Constants for consistent error handling across the application

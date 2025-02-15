@@ -147,6 +147,19 @@ def process_user_csv(csv_data, csv_copy):
         return handle_exception(e, context = msg.ERROR_CSV)
 
 def user_csv_check(csv_data):
+    """
+    Description:
+    This function validates user-uploaded CSV data by checking for missing values and ensuring all fields
+    conform to expected formats. It verifies headers, enforces data type constraints, and identifies
+    any issues in the dataset.
+
+    Parameters:
+    csv_data (csv.DictReader): The user-uploaded CSV data in dictionary format.
+
+    Returns:
+    dict: A dictionary containing a success flag and an error message if validation fails.
+    """
+    
     # Helper function to check if a string is a valid float
     def is_float(value):
         try:
@@ -181,21 +194,24 @@ def user_csv_check(csv_data):
         "cpi": (lambda x: is_float(x), "CPI must be a valid float"),
     }
 
-    # Check if the headers match exactly
+    # Validate that the headers match the expected format
     if headers == required_headers:
         invalid_rows = False
         for row_index, row in enumerate(csv_data, start=1):
             print(f"Processing Row {row_index}: {row}")
             for column, (validate, error_message)  in validation_rules.items():
+                
+                # Handle potential variations in column names (like BOM-prefixed names)
                 keys = ["week_start", "\ufeffweek_start"] if column == "week_start" else [column]
                 value = next((row.get(key, "").strip() for key in keys if key in row), "")
-            
-                print(f"  Column: {column}, Value: '{value}'")
+                
+                # Check for missing values
                 if value == "":
                     invalid_rows = True
                     message = f"Missing value in column '{column}' at row {row_index}"
                     break
                 
+                # Validate the value based on defined rules
                 elif not validate(value):
                     invalid_rows = True
                     message = f"Row {row_index}, Column '{column}': '{value}' is invalid. {error_message}"

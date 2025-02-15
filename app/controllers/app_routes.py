@@ -40,7 +40,7 @@ Control:
 ===========================================================================================================
 """
 
-import csv, copy
+import csv
 from io import StringIO
 from flask import Blueprint, render_template, request
 from app.services.data_handling.processor import process_user_csv

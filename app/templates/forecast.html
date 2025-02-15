@@ -145,10 +145,7 @@ Control:
     color: #f1faee;
   }
 
-  #ncfs1,
-  #ncfs2,
-  #ncfs3,
-  #ncfs4 {
+  #ncfs1, #ncfs2, #ncfs3, #ncfs4 {
     background-color: #f1faee;
     border-color: #f1faee;
   }
@@ -229,7 +226,6 @@ Control:
     display: inline-flex;
     align-items: center;
     background-color: #1d3557;
-
     padding: 10px;
     border-radius: 5px;
   }
@@ -269,8 +265,7 @@ Control:
   }
 
   /* Select Button */
-  .date-text,
-  .select-text {
+  .date-text, .select-text {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
@@ -388,8 +383,7 @@ Control:
     width: 100%;
   }
 
-  th,
-  td {
+  th, td {
     padding: 20px;
     text-align: center;
     border: 2px solid #000000;
@@ -585,10 +579,8 @@ Control:
     const week_ends = data.week_ends;
     const selectedDate = $("#date-input").val();
     const date = selectedDate.split("-");
-
     const range = months[date[1] - 1] + " " + date[0];
     const week_ranges = [];
-
     let type = "";
     let tense = "";
 
@@ -648,7 +640,6 @@ Control:
     const year = week_ends[1].split("/")[2];
     const theft_month = [];
     const month_ranges = [];
-
     let monthIndex = 0;
     let theft = values[0];
     let month = "";
@@ -714,7 +705,6 @@ Control:
     const tense = "experienced a total";
     const theft_year = [];
     const year_ranges = [];
-
     let theft = 0;
     let year = 0;
 

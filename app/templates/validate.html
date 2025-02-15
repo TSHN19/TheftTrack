@@ -3,7 +3,7 @@
 File: Validation Section for Theft Forecasting Application
 Programmers: Tashiana Mae C. Bandong and Alyssa Nicole B. Ramos
 Date Written: October 18, 2024
-Date Revised: November 04, 2024
+Date Revised: January 22, 2025
 
 Where the program fits in the general system design:
     This HTML file is part of the front-end UI for the theft forecasting web application. It provides the
@@ -82,7 +82,6 @@ Control:
     <div id="inpt-forecast">
       <!-- Forecasting Result -->
       <div id="inpt-chart"></div>
-      
       <!-- Line Graph Description Rendering -->
       <div id="inpt-chart-desc"></div>
     </div>
@@ -112,46 +111,46 @@ Control:
 <style>
   
   .popup-content button {
-  background-color: #457B9D; /* Bright red background */
-  color: white; /* White text color */
-  border: none; /* Remove default border */
-  border-radius: 8px; /* Rounded corners */
-  padding: 10px 15px; /* Padding for click area */
-  font-size: 16px; /* Text size */
-  font-weight: bold; /* Bold text */
-  cursor: pointer; /* Pointer cursor on hover */
-  margin-top: 20px; /* Space above the button */
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth background and scaling transition */
+    background-color: #457B9D;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
   }
 
   .popup-content button:hover {
-  background-color: #1D3557; /* Darker red on hover */
+    background-color: #1D3557; /* Darker red on hover */
   }
 
   .popup-container {
-  display: none; 
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
   }
 
-.popup-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-  width: 50vw;
-  max-width: 500px;
-  box-sizing: border-box;
-}
+  .popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    width: 50vw;
+    max-width: 500px;
+    box-sizing: border-box;
+  }
 
   #validate {
     background-color: #457B9D;
@@ -194,6 +193,7 @@ Control:
     color: #1D3557;
     background-color: #F7FFF4;
   }
+
   .input-container {
     display: flex;
     align-items: center;
@@ -301,7 +301,6 @@ Control:
     padding: 10px 15px;
     font-size: 16px;
     width: 12vw;
-  
   }
 
   #start-over, #upload {
@@ -391,17 +390,17 @@ Control:
         Using <span style="font-weight:bold; color: #D74E09;">[[selectedFactors]]</span>, the NCFS tool forecasts theft incidents to be<span style="font-weight: bold; color: #D74E09;">[[difference]]</span> [[description]].
       </div>
       <div style= "margin: 0 10px;">
-      <span style="background-color: #F7FFF4; margin-bottom: 20px; margin-top:20px; margin: 0 10px;">
-        <br /><b style="color: #1D3557">Actual Theft Incidents:</b> <span style="color: #D74E09;  font-weight: bold;">[[actual]]</span>
-        <br /><b style="color: #1D3557">Forecasted Theft Incidents:</b> <span style="color: #D74E09;  font-weight: bold;">[[forecasted]]</span>
-        <br>
-        <br /><b style="color: #1D3557">MAD:</b> <span style="color: #D74E09;  font-weight: bold;">[[mad]]</span>
-        <br /><b style="color: #1D3557">MAE:</b> <span style="color: #D74E09;  font-weight: bold;">[[mae]]</span>
-        <br /><b style="color: #1D3557">RMSE:</b> <span style="color: #D74E09;  font-weight: bold;">[[rmse]]</span>
-        <br /><b style="color: #1D3557">MAPE:</b> <span style="color: #D74E09;  font-weight: bold;">[[mape]]%</span>
-        <br>
-      </span>
-    </div>
+        <span style="background-color: #F7FFF4; margin-bottom: 20px; margin-top:20px; margin: 0 10px;">
+          <br /><b style="color: #1D3557">Actual Theft Incidents:</b> <span style="color: #D74E09;  font-weight: bold;">[[actual]]</span>
+          <br /><b style="color: #1D3557">Forecasted Theft Incidents:</b> <span style="color: #D74E09;  font-weight: bold;">[[forecasted]]</span>
+          <br>
+          <br /><b style="color: #1D3557">MAD:</b> <span style="color: #D74E09;  font-weight: bold;">[[mad]]</span>
+          <br /><b style="color: #1D3557">MAE:</b> <span style="color: #D74E09;  font-weight: bold;">[[mae]]</span>
+          <br /><b style="color: #1D3557">RMSE:</b> <span style="color: #D74E09;  font-weight: bold;">[[rmse]]</span>
+          <br /><b style="color: #1D3557">MAPE:</b> <span style="color: #D74E09;  font-weight: bold;">[[mape]]%</span>
+          <br>
+        </span>
+      </div>
     </div>
   </p>
 </script>
@@ -412,7 +411,7 @@ Control:
     <p>The <b style="color: #F8D563;">[[bestModel]] Model</b> is the best option for forecasting, showing the smallest errors with a Mean Absolute Error (MAE) of [[bestMAE]], a Mean Absolute Percentage Error (MAPE) of [[bestMAPE]]%, and a Root Mean Square Error (RMSE) of [[bestRMSE]].</p>
     <p>On the other hand, the <b style="color: #F8D563;">[[leastModel]] Model</b> has the largest errors, with a MAE of [[leastMAE]] and an RMSE of [[leastRMSE]], making it the least accurate. The <b style="color: #F8D563;">[[unselected1]]</b> and <b>[[unselected2]] Models</b> perform reasonably well but don’t quite match the accuracy of [[bestModel]].</p>
     <p><b style="color: #F8D563;">Overall, [[bestModel]] is the most reliable choice for selecting factors for theft predictions.</b></p>
-</div>
+  </div>
 </script>
 
 <script>
