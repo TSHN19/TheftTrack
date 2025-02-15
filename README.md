@@ -1,6 +1,8 @@
 # Project Title: TheftTrack
 
-![TheftTrackLogo](app/static/images/Logo.png)
+<p align="center">
+  <img src="app/static/images/Logo.png" alt="TheftTrackLogo" width="400">
+</p>
 
 ## Description
 
