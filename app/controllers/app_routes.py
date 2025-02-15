@@ -40,7 +40,7 @@ Control:
 ===========================================================================================================
 """
 
-import csv
+import csv, copy
 from io import StringIO
 from flask import Blueprint, render_template, request
 from app.services.data_handling.processor import process_user_csv
@@ -85,4 +85,5 @@ def upload_data():
     file = request.files['file']
     content = file.read().decode('utf-8')
     csv_data = csv.DictReader(StringIO(content))
-    return process_user_csv(csv_data)
+    csv_copy = csv.DictReader(StringIO(content))
+    return process_user_csv(csv_data, csv_copy)

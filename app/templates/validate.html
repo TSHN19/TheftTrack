@@ -43,7 +43,7 @@ Control:
 <section id="validate" class="">
   <div id="input">
     <h2 id="validate-header" class="text-md font-extrabold text-white">
-      Input Data for Theft Forecasting in <span class="highlight text-md font-extrabold text-orange">Other Locations</span>
+      Input Data for Theft Forecasting in <span class="highlight text-md font-extrabold  text-orange">Other Locations</span>
     </h2>
     <p id="validate-desc"> Use this tool to forecast potential theft trends in a different location. Simply enter the location name and upload the necessary data in CSV format. The tool will analyze and provide insights for the selected area.</p>
     <br>
@@ -61,12 +61,12 @@ Control:
           </div>
       </div>
       <div id="instructions">
-          <p style="font-weight: bold;">Instructions:</p>
+          <p>Instructions:</p>
           <p><span class="highlight font-bold text-yellow">1. Enter Location:</span> Type in the name of the city or neighborhood where you want to analyze theft trends (e.g., 'Chicago', 'Lincoln Park').</p>
           <p><span class="highlight font-bold text-yellow">2. Upload CSV File:</span> Choose a CSV file from your device that includes data such as dates, theft type, and incidents count. Ensure your CSV contains columns for date, location, and theft type.
           <p><span class="highlight font-bold text-yellow">3. Click Upload:</span> Once you’ve entered the location and uploaded the file, click the 'Upload' button to start analyzing the data.</p>
           <p><span class="highlight font-bold text-yellow">4. Wait for Results:</span> After clicking 'Upload', wait a few moments while your data is being processed. The results will display below once ready.</p>
-          <p style="text-align: center; font-weight: bold; margin-right: 220px;">Download this <a style="text-decoration: none; color: #F8D563; font-weight: bold;" href="static/template/template.csv" download><i>template</i></a> to ensure your data is structured correctly. Fill it out and upload it back in either Excel or CSV format.</p>
+          <p style="text-align: center; font-weight: bold;">Download this <a style="text-decoration: none; color: #F8D563; font-weight: bold;" href="static/template/template.csv" download><i>template</i></a> to ensure your data is structured correctly. Fill it out and upload it back in CSV format.</p>
       </div>
       <div><button id="upload" type="button" onclick="uploadData()">Upload</button></div>
     </form>
@@ -78,7 +78,7 @@ Control:
   </div>
 
   <div id="output">
-    <h2 id="output-header" class="text-md font-extrabold text-white"></h2>
+    <h2 id="output-header" class="text-md font-semibold text-white"></h2>
     <div id="inpt-forecast">
       <!-- Forecasting Result -->
       <div id="inpt-chart"></div>
@@ -97,10 +97,62 @@ Control:
     <div id="inpt-evaluation"></div>
     <button id="start-over" type="button" onclick="startOver()">Start Over</button>
   </div>
-    
+
+  <!-- Popup Container -->
+  <div id="errorPopup" class="popup-container">
+    <div class="popup-content">
+      <h2>CSV Upload Error</h2>
+      <p id="errorMessage"></p>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+
 </section>
 
 <style>
+  
+  .popup-content button {
+  background-color: #457B9D; /* Bright red background */
+  color: white; /* White text color */
+  border: none; /* Remove default border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 10px 15px; /* Padding for click area */
+  font-size: 16px; /* Text size */
+  font-weight: bold; /* Bold text */
+  cursor: pointer; /* Pointer cursor on hover */
+  margin-top: 20px; /* Space above the button */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth background and scaling transition */
+  }
+
+  .popup-content button:hover {
+  background-color: #1D3557; /* Darker red on hover */
+  }
+
+  .popup-container {
+  display: none; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  }
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  width: 50vw;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+
   #validate {
     background-color: #457B9D;
     padding: 3vw;
@@ -117,9 +169,10 @@ Control:
     margin-right: 250px;
   }
 
-  #validate-header, #output-header, #output-best {
+  #validate-header, #output-header, #output-best, #validate-header span {
     display: flex;
     justify-content: center;
+    font-size: 2rem;
   }
 
   #csvForm {
@@ -335,7 +388,7 @@ Control:
   <p class="tool-description">
     <div style="text-align: justify;">
       <div style="text-align: justify; color: #01204e; font-weight: bold; margin: 0 10px;">
-        Using <span style="text-decoration: underline; color: #D74E09;">[[selectedFactors]]</span>, the NCFS tool forecasts theft incidents to be<span style="text-decoration: underline; color: #D74E09;">[[difference]]</span> [[description]].
+        Using <span style="font-weight:bold; color: #D74E09;">[[selectedFactors]]</span>, the NCFS tool forecasts theft incidents to be<span style="font-weight: bold; color: #D74E09;">[[difference]]</span> [[description]].
       </div>
       <div style= "margin: 0 10px;">
       <span style="background-color: #F7FFF4; margin-bottom: 20px; margin-top:20px; margin: 0 10px;">
@@ -366,11 +419,22 @@ Control:
   $(document).ready(function() {
     $("#output, .loader").hide();
   });
+  
+  $("#errorPopup").hide();
 
   $('#crime-data').on('change', function () {
     const fileName = this.files[0]?.name || "No File Chosen";
     $('#file-name').text(fileName);
   });
+
+  function showErrorPopup(message) {
+    $("#errorMessage").html(message);
+    $("#errorPopup").fadeIn();
+  }
+
+  function closePopup() {
+    $("#errorPopup").fadeOut();
+  }
 
   function uploadData() {
     const fileInput = $("#crime-data")[0];
@@ -390,46 +454,53 @@ Control:
         processData: false,
         contentType: false,
         success: function(data) {
-          console.log(data)
-          ncfs = data.models;
-          forecast_result = data.forecast_result;
+          $(".loader").hide();
+          if (data.success) {
+            console.log(data)
+            ncfs = data.models;
+            forecast_result = data.forecast_result;
 
-          $("#output-header").html(`Theft Forecasting in <span class="highlight text-md font-extrabold text-orange"> ${location}</span>`)
-          $("#output").show();
-          $("#input").hide();
+            $("#output-header").html(`Theft Forecasting in <span class="highlight text-head font-extrabold text-orange output-header"> ${location}</span>`)
+            $("#output").show();
+            $("#input").hide();
 
-          const vh = window.innerHeight * 0.11; 
-          const targetElement = document.getElementById("validate");
-          window.scrollTo({ 
-            top: targetElement.offsetTop - vh,
-            behavior: "smooth" 
-          });
+            const vh = window.innerHeight * 0.11; 
+            const targetElement = document.getElementById("validate");
+            window.scrollTo({ 
+              top: targetElement.offsetTop - vh,
+              behavior: "smooth" 
+            });
 
-          // Initialize the forecast object
-          const forecast = {
-            theft_values: [],
-            week_ends: [],
-            week_starts: []
-          };
+            // Initialize the forecast object
+            const forecast = {
+              theft_values: [],
+              week_ends: [],
+              week_starts: []
+            };
 
-          // Populate the forecast object
-          forecast_result.forEach(item => {
-            forecast.theft_values.push(item.forecasted_value);
-            forecast.week_ends.push(item.week_end);
-            forecast.week_starts.push(item.week_start);
-          });
+            // Populate the forecast object
+            forecast_result.forEach(item => {
+              forecast.theft_values.push(item.forecasted_value);
+              forecast.week_ends.push(item.week_end);
+              forecast.week_starts.push(item.week_start);
+            });
 
-          // Render line graph and description
-          weeklyForecast(forecast, "#inpt-chart", "inptForecast", "#inpt-chart-desc", location)
+            // Render line graph and description
+            weeklyForecast(forecast, "#inpt-chart", "inptForecast", "#inpt-chart-desc", location)
 
-          // Render bar graph and description for each NCFS tool
-          inptRenderToolComparison($("#inpt-ncfs1"), ncfs[0], "inpt-ncfs1-graph")
-          inptRenderToolComparison($("#inpt-ncfs2"), ncfs[1], "inpt-ncfs2-graph")
-          inptRenderToolComparison($("#inpt-ncfs3"), ncfs[2], "inpt-ncfs3-graph")
-          inptRenderToolComparison($("#inpt-ncfs4"), ncfs[3], "inpt-ncfs4-graph")        
+            // Render bar graph and description for each NCFS tool
+            inptRenderToolComparison($("#inpt-ncfs1"), ncfs[0], "inpt-ncfs1-graph")
+            inptRenderToolComparison($("#inpt-ncfs2"), ncfs[1], "inpt-ncfs2-graph")
+            inptRenderToolComparison($("#inpt-ncfs3"), ncfs[2], "inpt-ncfs3-graph")
+            inptRenderToolComparison($("#inpt-ncfs4"), ncfs[3], "inpt-ncfs4-graph")        
+            
+            // Render tool evaluation table
+            renderToolEvaluationTable([ncfs[0], ncfs[1], ncfs[2], ncfs[3]], "#inpt-evaluation", "#inptToolDescriptionTemplate", "#output-best")
+          }
           
-          // Render tool evaluation table
-          renderToolEvaluationTable([ncfs[0], ncfs[1], ncfs[2], ncfs[3]], "#inpt-evaluation", "#inptToolDescriptionTemplate", "#output-best")
+          else {
+            showErrorPopup(data.message)
+          }
         },
         error: function(error) {
           console.error("Upload failed:", error);
