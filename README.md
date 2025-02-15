@@ -41,7 +41,7 @@ The project is organized as follows:
 
 - **Samantha Neil Q. Rico**  
   - Role: Lead Developer  
-  - Email: samantharico777.gmail.com 
+  - Email: samantharico777@gmail.com 
   - GitHub: [Rieil](https://github.com/Rieil)
 
 - **Angelica D. Ambrocio**  
