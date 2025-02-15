@@ -1,7 +1,7 @@
 # Project Title: TheftTrack
 
 <p align="center">
-  <img src="app/static/images/TheftTrack.png" alt="TheftTrackLogo" width="400">
+  <img src="app/static/images/TheftTrack.png" alt="TheftTrackLogo">
 </p>
 
 ## Description
